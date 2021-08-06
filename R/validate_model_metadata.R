@@ -11,52 +11,22 @@
 #'
 #' @importFrom yaml read_yaml
 #' @importFrom jsonlite toJSON
-#' @importFrom fs path_ext
-#' @importFrom jsonvalidate json_validate
+#' @import testthat
+#'
+#' @examples
+#' validate_model_metadata(
+#'   system.file("extdata", "metadata-example-model.yml",
+#'               package = "ForecastHubValidations"),
+#'   system.file("extdata", "metadata-schema.yml",
+#'               package = "ForecastHubValidations")
+#' )
 #'
 validate_model_metadata <- function(metadata_file, schema_file) {
 
-  # Check that file has the yml extension ----
-  if (path_ext(metadata_file) != ".yml") {
-    stop(
-      "The metadata file should use the `.yml` file extension. The current ",
-      "file extension is: ", path_ext(metadata_file), "."
-    )
-  }
-
-  metadata <-read_yaml(metadata_file)
-
-  # Check that file name starts with `model_abbr` ----
-
-  if (metadata_file != paste("metadata", metadata$model_abbr, sep = "-")) {
-    stop(
-      "The metadata file should start with 'metadata-' and then include the ",
-      "model abbreviated name, as specified in the `model_abbr` field."
-    )
-  }
-
-  # Validate against schema ----
-
-  # For some reason, jsonvalidate doesn't like it when we don't unbox
-  metadata_json <- toJSON(metadata, auto_unbox = TRUE)
-  schema_json <- toJSON(read_yaml(schema_file), auto_unbox = TRUE)
-
-  # Default engine (imjv) doesn't support schema version above 4 so we switch
-  # to ajv that supports all versions
-  valid <- json_validate(metadata_json, schema_json, engine = "ajv",
-                         verbose = TRUE, greedy = TRUE)
-
-  # We could use the error = TRUE from json_validate to get directly an error
-  # but this way, we can customize the error message more finely
-  if (!valid) {
-    validation_errors <- attr(valid, "errors")
-    validation_msg <- paste("-",
-                            validation_errors$instancePath,
-                            validation_errors$message)
-    validation_msg <- paste(validation_msg, collapse = "\n")
-    stop(
-      "Error while validating metadata file:\n", validation_msg
-    )
-  }
+  test_file(
+    system.file("extdata", "test-metadata.R",
+                package = "ForecastHubValidations"),
+    env = rlang::current_env()
+  )
 
 }

@@ -22,3 +22,12 @@ Checks:
 \item \code{metadata_file} matches specification from \code{schema_file}
 }
 }
+\examples{
+validate_model_metadata(
+  system.file("extdata", "metadata-example-model.yml",
+              package = "ForecastHubValidations"),
+  system.file("extdata", "metadata-schema.yml",
+              package = "ForecastHubValidations")
+)
+
+}

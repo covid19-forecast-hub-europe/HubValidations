@@ -14,7 +14,7 @@ properties:
   model_abbr:
     type: string
     pattern: ^[a-zA-Z0-9_+]+-[a-zA-Z0-9_+]+$
-    maxLength: 5
+    maxLength: 32
   model_contributors:
     type: string
   website_url:
