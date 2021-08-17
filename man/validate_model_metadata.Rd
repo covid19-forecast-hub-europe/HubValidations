@@ -4,27 +4,19 @@
 \alias{validate_model_metadata}
 \title{Validate model metadata file}
 \usage{
-validate_model_metadata(metadata_file, schema_file)
+validate_model_metadata(metadata_file, metadata_schema, ...)
 }
 \arguments{
 \item{metadata_file}{Path to the metadata \code{.yml} file}
 
-\item{schema_file}{Path to the \code{.yml} schema file}
+\item{metadata_schema}{Path to the \code{.yml} schema file}
 }
 \description{
 Validate model metadata file
 }
-\details{
-Checks:
-\itemize{
-\item \code{metadata_file} uses \code{.yml} extension
-\item \code{metadata_file} name starts with the content of \code{model_abbr} field
-\item \code{metadata_file} matches specification from \code{schema_file}
-}
-}
 \examples{
 validate_model_metadata(
-  system.file("extdata", "metadata-example-model.yml",
+  system.file("testdata", "metadata-example-model.yml",
               package = "ForecastHubValidations"),
   system.file("extdata", "metadata-schema.yml",
               package = "ForecastHubValidations")

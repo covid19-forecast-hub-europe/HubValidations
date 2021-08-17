@@ -1,0 +1,85 @@
+---
+title: "Package design"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{"Package design"}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Requirements
+
+The package functionality must respect the following rules:
+
+- The data and metadata can be tested separately.
+- The tests can be run locally via a simple function call.
+- There is not hardcoded dependency to GitHub (or to a specific repository). Users
+can choose any submission process and still be able to run the validation code.
+
+## Functionality dropped from the previous iteration
+
+- The GitHub issue labelling feature will be moved to a different action
+directly in the main repository because it is not part of the validation process/
+- The comment linking to the forecast previsualisation will be moved to a different
+action, controlled by a [`workflow_run` event](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#workflow_run) based on the success of the validations.
+- The zoltar upload workflow will be moved to a different repository (possibly
+the main repository).
+- The check that predicted values do not exceed population size is dropped 
+entirely. I don't believe it's our role to gatekeep this. We only want to 
+validate the forecast format, not the forecast itself.
+
+## Proposed interface
+
+- `validate_model_forecast(file = )`: validate a single `.csv` forecast file.
+- `validate_model_metadata(file = )`: validate a single `.yml` metadata file.
+- `validate_model_folder(path = )`: validate all the `.csv` forecast files and the `.yml` metadata file in a given folder.
+- `validate_repository(path = )`: validate all model folders in a given folder / repository
+- `validate_pr(url = )`: validate all the files edited in a pull request / all the relevant folders. Identifies which files have been modified and dispatch them to the relevant validation functions.
+
+## Tests
+
+### `validate_model_forecast()`
+
+- test that file name follow the required format
+- test that the column `forecast_date` matches the file name
+- test that forecasts have no negative values
+- test that all required columns are present (in the expect order)
+- test that all columns have the expected type
+- test that quantiles match quantiles in the config file
+- test that horizons match horizons in the config file
+- test that target types match target types in the config file
+- test that target_end_dates match forecast_date + horizon
+- test that weekday of target_end_dates matches what is in the config file
+- test that weekday of forecast_date matches what is in the config file
+- test that predicted values are increasing with quantile
+- test that locations match locations in the config file
+
+### `validate_model_metadata()`
+
+- validate against schema
+- test that the license is one of the accepted licenses. 
+**Where does the list of accepted licenses come from?**
+- test that the file name starts with `model_abbr`
+
+### `validate_model_folder()`
+
+- tests from `validate_model_forecast()`
+- tests from `validate_model_metadata()`
+- test that the `.csv` forecast files and `.yml` model metadata file start with the name of the folder
+
+### `validate_repository()`
+
+- test that each team only has a single `primary` model
+
+### `validate_pr()`
+
+- test from `validate_model_folder()`
+- test that the files are added in the correct location (instead of, e.g., at 
+the root of the repo, as has happened in the case of the US hub)
