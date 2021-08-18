@@ -2,6 +2,8 @@
 
 S3method(print,fhub_validations)
 export(validate_model_forecast)
+importFrom(dplyr,"%>%")
+importFrom(dplyr,add_count)
 importFrom(dplyr,case_when)
 importFrom(jsonlite,toJSON)
 importFrom(jsonvalidate,json_validate)

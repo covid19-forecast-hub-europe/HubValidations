@@ -1,9 +1,9 @@
 team_name: European COVID-19 Forecast Hub
 model_name: Example Model for Validations
-model_abbr: example-model
+model_abbr: example-model2
 model_contributors: European COVID-19 Forecast Hub team
 website_url: https://covid19forecasthub.eu/
 license: cc-by-4.0
-team_model_designation: primary
+team_model_designation: secondary
 methods: An baseline model against which other models can be evaluated
 team_funding: This model's development is funded by the European Centre for Disease Prevention and Control.

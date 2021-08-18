@@ -11,13 +11,13 @@
 #' validate_model_metadata(
 #'   system.file("testdata", "example-model", "metadata-example-model.yml",
 #'               package = "ForecastHubValidations"),
-#'   system.file("extdata", "metadata-schema.yml",
+#'   system.file("testdata", "metadata-schema.yml",
 #'               package = "ForecastHubValidations")
 #' )
 #'
 validate_model_metadata <- function(metadata_file, metadata_schema, ...) {
 
-  metadata <-read_yaml(metadata_file)
+  metadata <- read_yaml(metadata_file)
 
   # For some reason, jsonvalidate doesn't like it when we don't unbox
   metadata_json <- toJSON(metadata, auto_unbox = TRUE)

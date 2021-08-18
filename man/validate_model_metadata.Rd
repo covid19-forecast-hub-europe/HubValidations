@@ -16,9 +16,9 @@ Validate model metadata file
 }
 \examples{
 validate_model_metadata(
-  system.file("testdata", "metadata-example-model.yml",
+  system.file("testdata", "example-model", "metadata-example-model.yml",
               package = "ForecastHubValidations"),
-  system.file("extdata", "metadata-schema.yml",
+  system.file("testdata", "metadata-schema.yml",
               package = "ForecastHubValidations")
 )
 

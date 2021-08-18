@@ -2,9 +2,9 @@
 #' validate_model_folder(
 #'   system.file("testdata", "example-model",
 #'               package = "ForecastHubValidations"),
-#'   system.file("extdata", "forecast-schema.yml",
+#'   system.file("testdata", "forecast-schema.yml",
 #'               package = "ForecastHubValidations"),
-#'   system.file("extdata", "metadata-schema.yml",
+#'   system.file("testdata", "metadata-schema.yml",
 #'               package = "ForecastHubValidations")
 #' )
 validate_model_folder <- function(path, forecast_schema, metadata_schema) {
