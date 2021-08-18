@@ -7,6 +7,8 @@
 #' @importFrom jsonlite toJSON
 #' @importFrom jsonvalidate json_validate
 #'
+#' @export
+#'
 #' @examples
 #' validate_model_metadata(
 #'   system.file("testdata", "example-model", "metadata-example-model.yml",

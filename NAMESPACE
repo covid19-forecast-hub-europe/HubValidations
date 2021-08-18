@@ -2,6 +2,9 @@
 
 S3method(print,fhub_validations)
 export(validate_model_forecast)
+export(validate_model_metadata)
+export(validate_pr)
+export(validate_repository)
 importFrom(dplyr,"%>%")
 importFrom(dplyr,add_count)
 importFrom(dplyr,case_when)

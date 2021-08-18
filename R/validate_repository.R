@@ -1,9 +1,12 @@
 #' @importFrom dplyr %>% add_count
-
+#'
+#' @export
+#'
 #' @examples
 #' validate_repository(
 #'   system.file("testdata", package = "ForecastHubValidations")
 #' )
+#'
 validate_repository <- function(
   data_folder = ".",
   forecast_schema = file.path(data_folder, "forecast-schema.yml"),

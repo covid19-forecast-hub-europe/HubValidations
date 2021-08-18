@@ -1,3 +1,5 @@
+#' @export
+#'
 #' @examples
 #' validate_pr(
 #'   "epiforecasts/covid19-forecast-hub-europe",
