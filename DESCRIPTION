@@ -32,3 +32,5 @@ Suggests:
 VignetteBuilder: knitr
 Remotes: 
     r-lib/rlang
+URL: https://github.com/epiforecasts/ForecastHubValidations
+BugReports: https://github.com/epiforecasts/ForecastHubValidations/issues
