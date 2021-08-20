@@ -1,3 +1,11 @@
+#' Validate forecasts and metadata for a given model/folder
+#'
+#' @param path Path to the model/folder to validate
+#' @inheritParams validate_model_forecast
+#' @inheritParams validate_model_metadata
+#'
+#' @export
+#'
 #' @examples
 #' validate_model_folder(
 #'   system.file("testdata", "example-model",

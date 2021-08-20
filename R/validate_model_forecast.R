@@ -3,6 +3,8 @@
 #' @param forecast_file Path to the forecast `.csv` file
 #' @param forecast_schema Path to the `.yml` schema file
 #'
+#' @return An object of class `fhub_validations`.
+#'
 #' @importFrom yaml read_yaml
 #' @importFrom jsonlite toJSON
 #' @importFrom jsonvalidate json_validate
@@ -17,7 +19,7 @@
 #'               package = "ForecastHubValidations")
 #' )
 
-validate_model_forecast <- function(forecast_file, forecast_schema, ...) {
+validate_model_forecast <- function(forecast_file, forecast_schema) {
 
   forecast <- readr::read_csv(
     forecast_file,

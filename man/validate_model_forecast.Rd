@@ -4,12 +4,15 @@
 \alias{validate_model_forecast}
 \title{Validate model forecast file}
 \usage{
-validate_model_forecast(forecast_file, forecast_schema, ...)
+validate_model_forecast(forecast_file, forecast_schema)
 }
 \arguments{
 \item{forecast_file}{Path to the forecast \code{.csv} file}
 
 \item{forecast_schema}{Path to the \code{.yml} schema file}
+}
+\value{
+An object of class \code{fhub_validations}.
 }
 \description{
 Validate model forecast file

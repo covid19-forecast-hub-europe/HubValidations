@@ -4,12 +4,15 @@
 \alias{validate_model_metadata}
 \title{Validate model metadata file}
 \usage{
-validate_model_metadata(metadata_file, metadata_schema, ...)
+validate_model_metadata(metadata_file, metadata_schema)
 }
 \arguments{
 \item{metadata_file}{Path to the metadata \code{.yml} file}
 
 \item{metadata_schema}{Path to the \code{.yml} schema file}
+}
+\value{
+An object of class \code{fhub_validations}.
 }
 \description{
 Validate model metadata file

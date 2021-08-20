@@ -1,4 +1,13 @@
+#' Validate a complete repository containing multiple forecast folders
+#'
+#' @param data_folder The path to the folder containing forecasts
+#' @inheritParams validate_model_forecast
+#' @inheritParams validate_model_metadata
+#'
+#' @return An object of class `fhub_validations`.
+#'
 #' @importFrom dplyr %>% add_count
+#' @importFrom rlang .data
 #'
 #' @export
 #'
@@ -41,7 +50,7 @@ validate_repository <- function(
         designation = read_yaml(.x)[["team_model_designation"]]
       )
   ) %>%
-    add_count(team, designation)
+    add_count(.data$team, .data$designation)
 
   validations_repo <- apply(model_designations, 1, function(x) {
     fhub_check(

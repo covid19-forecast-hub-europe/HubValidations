@@ -3,6 +3,8 @@
 #' @param metadata_file Path to the metadata `.yml` file
 #' @param metadata_schema Path to the `.yml` schema file
 #'
+#' @return An object of class `fhub_validations`.
+#'
 #' @importFrom yaml read_yaml
 #' @importFrom jsonlite toJSON
 #' @importFrom jsonvalidate json_validate
@@ -17,7 +19,7 @@
 #'               package = "ForecastHubValidations")
 #' )
 #'
-validate_model_metadata <- function(metadata_file, metadata_schema, ...) {
+validate_model_metadata <- function(metadata_file, metadata_schema) {
 
   metadata <- read_yaml(metadata_file)
 
