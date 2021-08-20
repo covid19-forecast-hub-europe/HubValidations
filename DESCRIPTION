@@ -24,9 +24,11 @@ Imports:
     jsonvalidate,
     purrr,
     readr,
-    rlang,
+    rlang (>= 0.4.11.9000),
     yaml
 Suggests: 
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+Remotes: 
+    r-lib/rlang

@@ -5,7 +5,7 @@
 #'
 #' @importFrom dplyr case_when
 #' @importFrom purrr map_lgl map_chr
-#' @importFrom rlang format_error_bullets inherits_any
+#' @importFrom rlang format_bullets inherits_any
 #' @importFrom stats setNames
 #'
 #' @export
@@ -24,7 +24,7 @@ print.fhub_validations <- function(x, ...) {
     )
   )
 
-  cat(format_error_bullets(msg))
+  cat(format_bullets(msg))
 
 }
 
