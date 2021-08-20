@@ -72,7 +72,69 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-What the package does (one paragraph).
+<div id="forecasthubvalidations" class="section level1">
+<div class="page-header"><h1 class="hasAnchor">
+<a href="#forecasthubvalidations" class="anchor"></a>ForecastHubValidations</h1></div>
+<!-- badges: start -->
+
+<p>This package aims at providing a simple interface to run validations on data and metadata submitted to a forecast hub. Validation tests can be run at different levels (single file, single folder, whole repository) and locally as well as part of a continuous integration workflow. For more information, please read the <a href="https://epiforecasts.github.io/ForecastHubValidations/articles/design.html">“Package design” vignette</a>.</p>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
+<p>You can the latest version of this package from GitHub with:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># install.packages("remotes")</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"epiforecasts/ForecastHubValidations"</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="usage" class="section level2">
+<h2 class="hasAnchor">
+<a href="#usage" class="anchor"></a>Usage</h2>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">ForecastHubValidations</span><span class="op">)</span>
+
+<span class="fu"><a href="reference/validate_repository.html">validate_repository</a></span><span class="op">(</span>
+ <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, package <span class="op">=</span> <span class="st">"ForecastHubValidations"</span><span class="op">)</span>
+<span class="op">)</span>
+<span class="co">#&gt; ✓ example-model: There is only one metadata file</span>
+<span class="co">#&gt; ✓ example-model: Folder name is the same as the model name in metadata filename</span>
+<span class="co">#&gt; ✓ 2021-07-19-example-model.csv: Folder name is identical to model name in forecast file</span>
+<span class="co">#&gt; ✓ 2021-07-26-example-model.csv: Folder name is identical to model name in forecast file</span>
+<span class="co">#&gt; ✓ metadata-example-model.yml: Metadata file is using the `.yml` extension</span>
+<span class="co">#&gt; ✓ metadata-example-model.yml: Metadata filename is starting with 'metadata-'</span>
+<span class="co">#&gt; ✓ metadata-example-model.yml: Metadata filename is the same as `model_abbr`</span>
+<span class="co">#&gt; ✓ metadata-example-model.yml: Metadata file is consistent with schema specifications</span>
+<span class="co">#&gt; ✓ 2021-07-19-example-model.csv: Filename is formed of a date and a model name</span>
+<span class="co">#&gt; ✓ 2021-07-19-example-model.csv: `forecast_date` column is identical to the date in filename</span>
+<span class="co">#&gt; ✓ 2021-07-19-example-model.csv: Forecast data is formed of the expected columns with correct type</span>
+<span class="co">#&gt; ✓ 2021-07-26-example-model.csv: Filename is formed of a date and a model name</span>
+<span class="co">#&gt; ✓ 2021-07-26-example-model.csv: `forecast_date` column is identical to the date in filename</span>
+<span class="co">#&gt; ✓ 2021-07-26-example-model.csv: Forecast data is formed of the expected columns with correct type</span>
+<span class="co">#&gt; ✓ example-model2: There is only one metadata file</span>
+<span class="co">#&gt; ✓ example-model2: Folder name is the same as the model name in metadata filename</span>
+<span class="co">#&gt; ✓ 2021-07-19-example-model2.csv: Folder name is identical to model name in forecast file</span>
+<span class="co">#&gt; ✓ 2021-07-26-example-model2.csv: Folder name is identical to model name in forecast file</span>
+<span class="co">#&gt; ✓ metadata-example-model2.yml: Metadata file is using the `.yml` extension</span>
+<span class="co">#&gt; ✓ metadata-example-model2.yml: Metadata filename is starting with 'metadata-'</span>
+<span class="co">#&gt; ✓ metadata-example-model2.yml: Metadata filename is the same as `model_abbr`</span>
+<span class="co">#&gt; ✓ metadata-example-model2.yml: Metadata file is consistent with schema specifications</span>
+<span class="co">#&gt; ✓ 2021-07-19-example-model2.csv: Filename is formed of a date and a model name</span>
+<span class="co">#&gt; ✓ 2021-07-19-example-model2.csv: `forecast_date` column is identical to the date in filename</span>
+<span class="co">#&gt; ✓ 2021-07-19-example-model2.csv: Forecast data is formed of the expected columns with correct type</span>
+<span class="co">#&gt; ✓ 2021-07-26-example-model2.csv: Filename is formed of a date and a model name</span>
+<span class="co">#&gt; x 2021-07-26-example-model2.csv: `forecast_date` column has to be identical to the date in filename</span>
+<span class="co">#&gt; ✓ 2021-07-26-example-model2.csv: Forecast data is formed of the expected columns with correct type</span>
+<span class="co">#&gt; ✓ metadata-example-model.yml: There is only one primary model for a given team</span>
+<span class="co">#&gt; ✓ metadata-example-model2.yml: There is only one primary model for a given team</span></code></pre></div>
+</div>
+<div id="context" class="section level2">
+<h2 class="hasAnchor">
+<a href="#context" class="anchor"></a>Context</h2>
+<p>This project is part of a larger effort to provide tools to create and run a forecast hub. Please also refer to our other packages:</p>
+<ul>
+<li><a href="https://github.com/epiforecasts/ForecastHubSubmissionApp">ForecastHubSubmissionApp</a></li>
+</ul>
+</div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -91,7 +153,13 @@ What the package does (one paragraph).
 </ul>
 </div>
 
-  </div>
+  <div class="dev-status">
+<h2>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/epiforecasts/ForecastHubValidations/actions"><img src="https://github.com/epiforecasts/ForecastHubValidations/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+</ul>
+</div>
+</div>
 </div>
 
 
