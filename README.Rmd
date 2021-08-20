@@ -16,7 +16,15 @@ knitr::opts_chunk$set(
 # `r devtools::as.package(".")$package`
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/epiforecasts/ForecastHubValidations/workflows/R-CMD-check/badge.svg)](https://github.com/epiforecasts/ForecastHubValidations/actions)
 <!-- badges: end -->
+
+This package aims at providing a simple interface to run validations on data
+and metadata submitted to a forecast hub. Validation tests can be run at 
+different levels (single file, single folder, whole repository) and locally as
+well as part of a continuous integration workflow.
+For more information, please read the 
+["Package design" vignette](https://epiforecasts.github.io/ForecastHubValidations/articles/design.html).
 
 ## Installation
 
@@ -24,11 +32,22 @@ You can the latest version of this package from GitHub with:
 
 ```{r, eval = FALSE}
 # install.packages("remotes")
-remotes::install_github("")
+remotes::install_github("epiforecasts/ForecastHubValidations")
 ```
 
 ## Usage
 
 ```{r example}
-library()
+library(ForecastHubValidations)
+
+validate_repository(
+ system.file("testdata", package = "ForecastHubValidations")
+)
 ```
+
+## Context
+
+This project is part of a larger effort to provide tools to create and run
+a forecast hub. Please also refer to our other packages:
+
+- [ForecastHubSubmissionApp](https://github.com/epiforecasts/ForecastHubSubmissionApp)
