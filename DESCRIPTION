@@ -1,5 +1,5 @@
 Package: ForecastHubValidations
-Title: What the Package Does (One Line, Title Case)
+Title: Validate Data Submitted to a Forecast Hub
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Hugo",
@@ -7,7 +7,10 @@ Authors@R:
            role = c("aut", "cre", "cph"),
            email = "hugo.gruson+R@normalesup.org",
            comment = c(ORCID = "0000-0002-4094-1476"))
-Description: What the package does (one paragraph).
+Description: This package aims at providing a simple interface to run 
+  validations on data and metadata submitted to a forecast hub. Validation tests
+  can be run at different levels (single file, single folder, whole repository)
+  and locally as well as part of a continuous integration workflow.
 License: MIT + file LICENSE
 Config/testthat/edition: 3
 Encoding: UTF-8
@@ -27,8 +30,10 @@ Imports:
     rlang (>= 0.4.11.9000),
     yaml
 Suggests: 
+    testthat (>= 3.0.0),
     knitr,
-    rmarkdown
+    rmarkdown,
+    covr
 VignetteBuilder: knitr
 Remotes: 
     r-lib/rlang
