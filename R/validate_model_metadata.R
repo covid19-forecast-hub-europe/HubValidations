@@ -21,38 +21,59 @@
 #'
 validate_model_metadata <- function(metadata_file, metadata_schema) {
 
-  metadata <- read_yaml(metadata_file)
+  validations <- list()
 
-  # For some reason, jsonvalidate doesn't like it when we don't unbox
-  metadata_json <- toJSON(metadata, auto_unbox = TRUE)
-  schema_json <- toJSON(read_yaml(metadata_schema), auto_unbox = TRUE)
+  tryCatch(
+    {
+      validations <- c(
+        validations,
+        fhub_check(
+          metadata_file,
+          "Metadata file", "using the `.yml` extension",
+          fs::path_ext(metadata_file) == "yml"
+        ),
+        fhub_check(
+          metadata_file,
+          "Metadata filename", "starting with 'metadata-'",
+          grepl("^metadata-",
+                fs::path_file(metadata_file))
+        )
+      )
 
-  validations <- list(
-    fhub_check(
-      metadata_file,
-      "Metadata file", "using the `.yml` extension",
-      fs::path_ext(metadata_file) == "yml"
-    ),
-    fhub_check(
-      metadata_file,
-      "Metadata filename", "starting with 'metadata-'",
-      grepl("^metadata-",
-            fs::path_file(metadata_file))
-    ),
-    fhub_check(
-      metadata_file,
-      "Metadata filename", "the same as `model_abbr`",
-      grepl(metadata$model_abbr,
-            fs::path_file(metadata_file))
-    ),
-    fhub_check(
-      metadata_file,
-      "Metadata file", "consistent with schema specifications",
-      # Default engine (imjv) doesn't support schema version above 4 so we
-      # switch to ajv that supports all versions
-      json_validate(metadata_json, schema_json, engine = "ajv",
-                    verbose = TRUE, greedy = TRUE)
-    )
+      metadata <- read_yaml(metadata_file)
+
+      validations <- c(validations, fhub_check(
+        metadata_file,
+        "Metadata filename", "the same as `model_abbr`",
+        grepl(metadata$model_abbr,
+              fs::path_file(metadata_file))
+      ))
+
+      # For some reason, jsonvalidate doesn't like it when we don't unbox
+      metadata_json <- toJSON(metadata, auto_unbox = TRUE)
+      schema_json <- toJSON(read_yaml(metadata_schema), auto_unbox = TRUE)
+
+      validations <- c(validations, fhub_check(
+        metadata_file,
+        "Metadata file", "consistent with schema specifications",
+        # Default engine (imjv) doesn't support schema version above 4 so we
+        # switch to ajv that supports all versions
+        json_validate(metadata_json, schema_json, engine = "ajv",
+                      verbose = TRUE, greedy = TRUE)
+      ))
+    },
+    error = function(e) {
+      # This handler is used when an unrecoverable error is thrown. This can
+      # happen when, e.g., the csv file cannot be parsed by read_csv(). In this
+      # situation, we want to output all the validations until this point plus
+      # this "unrecoverable" error.
+      e <- error_cnd(
+        class = "unrecoverable_error",
+        where = metadata_file,
+        message = conditionMessage(e)
+      )
+      validations <<- c(validations, list(e))
+    }
   )
 
   class(validations) <- c("fhub_validations", "list")

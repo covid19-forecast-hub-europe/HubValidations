@@ -22,45 +22,64 @@ validate_repository <- function(
   metadata_schema = file.path(data_folder, "metadata-schema.yml")
 ) {
 
-  forecast_folders <- fs::dir_ls(
-    path = data_folder,
-    type = "directory"
-  )
+  validations <- list()
 
-  validations_folders <- lapply(
-    forecast_folders,
-    validate_model_folder,
-    forecast_schema = forecast_schema,
-    metadata_schema = metadata_schema
-  )
-  validations_folders <- unlist(validations_folders, recursive = FALSE)
+  tryCatch(
+    {
 
-  metadata_files <- fs::dir_ls(
-    path = data_folder,
-    type = "file",
-    regexp = "([a-zA-Z0-9_+]+-[a-zA-Z0-9_+]+)/metadata\\-.\\1\\.yml",
-    recurse = TRUE
-  )
-
-  model_designations <- purrr::map_dfr(
-    metadata_files,
-    ~ list(
-        filename = fs::path_file(.x),
-        team = read_yaml(.x)[["team_name"]],
-        designation = read_yaml(.x)[["team_model_designation"]]
+      forecast_folders <- fs::dir_ls(
+        path = data_folder,
+        type = "directory"
       )
-  ) %>%
-    add_count(.data$team, .data$designation)
 
-  validations_repo <- apply(model_designations, 1, function(x) {
-    fhub_check(
-      x[["filename"]],
-      "There", "only one primary model for a given team",
-      x[["n"]] == 1
-    )
-  })
+      validations <- c(validations, unlist(lapply(
+        forecast_folders,
+        validate_model_folder,
+        forecast_schema = forecast_schema,
+        metadata_schema = metadata_schema
+      ), recursive = FALSE))
 
-  validations <- c(validations_folders, validations_repo)
+      metadata_files <- fs::dir_ls(
+        path = data_folder,
+        type = "file",
+        regexp = "([a-zA-Z0-9_+]+-[a-zA-Z0-9_+]+)/metadata\\-.\\1\\.yml",
+        recurse = TRUE
+      )
+
+      model_designations <- purrr::map_dfr(
+        metadata_files,
+        ~ list(
+            filename = fs::path_file(.x),
+            team = read_yaml(.x)[["team_name"]],
+            designation = read_yaml(.x)[["team_model_designation"]]
+          )
+      ) %>%
+        add_count(.data$team, .data$designation)
+
+      browser()
+
+      validations <- c(validations, unlist(
+        apply(model_designations, 1, function(x) {
+          fhub_check(
+            x[["filename"]],
+            "There", "only one primary model for a given team",
+            x[["n"]] == 1
+          )
+        }), recursive = FALSE))
+    },
+    error = function(e) {
+      # This handler is used when an unrecoverable error is thrown. This can
+      # happen when, e.g., the csv file cannot be parsed by read_csv(). In this
+      # situation, we want to output all the validations until this point plus
+      # this "unrecoverable" error.
+      e <- error_cnd(
+        class = "unrecoverable_error",
+        where = data_folder,
+        message = conditionMessage(e)
+      )
+      validations <<- c(validations, list(e))
+    }
+  )
 
   class(validations) <- c("fhub_validations", "list")
 

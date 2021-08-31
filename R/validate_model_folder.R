@@ -17,45 +17,66 @@
 #' )
 validate_model_folder <- function(path, forecast_schema, metadata_schema) {
 
-  all_files <- fs::dir_ls(
-    path = path,
-    type = "file"
-  )
+  validations_folder <- list()
 
-  forecast_files <- all_files[fs::path_ext(all_files) == "csv"]
-
-  metadata_file <- all_files[fs::path_ext(all_files) == "yml"]
-
-  validations_folder <- list(
-    fhub_check(
-      fs::path_file(path),
-      "There", "only one metadata file",
-      identical(length(metadata_file), 1L)
-    ),
-    fhub_check(
-      fs::path_file(path),
-      "Folder name", "the same as the model name in metadata filename",
-      identical(
-        fs::path_file(path),
-        gsub("^.*-([a-zA-Z0-9_+]+-[a-zA-Z0-9_+]+).*", "\\1",
-             fs::path_file(metadata_file))
+  tryCatch(
+    {
+      all_files <- fs::dir_ls(
+        path = path,
+        type = "file"
       )
-    )
-  )
 
-  validations_folder <- c(
-    validations_folder,
-    lapply(forecast_files, function(file) {
-     fhub_check(
-       fs::path_file(file),
-       "Folder name", "identical to model name in forecast file",
-       identical(
-         fs::path_file(path),
-         gsub("^.*-([a-zA-Z0-9_+]+-[a-zA-Z0-9_+]+).*", "\\1",
-              fs::path_file(file))
-       )
-     )
-    })
+      forecast_files <- all_files[fs::path_ext(all_files) == "csv"]
+
+      metadata_file <- all_files[fs::path_ext(all_files) == "yml"]
+
+      validations_folder <- c(validations_folder,
+        fhub_check(
+          fs::path_file(path),
+          "There", "only one metadata file",
+          identical(length(metadata_file), 1L)
+        ),
+        fhub_check(
+          fs::path_file(path),
+          "Folder name", "the same as the model name in metadata filename",
+          identical(
+            fs::path_file(path),
+            gsub("^.*-([a-zA-Z0-9_+]+-[a-zA-Z0-9_+]+).*", "\\1",
+                 fs::path_file(metadata_file))
+          )
+        )
+      )
+
+      validations_folder <- c(
+        validations_folder,
+        unlist(
+          lapply(forecast_files, function(file) {
+           fhub_check(
+             fs::path_file(file),
+             "Folder name", "identical to model name in forecast file",
+             identical(
+               fs::path_file(path),
+               gsub("^.*-([a-zA-Z0-9_+]+-[a-zA-Z0-9_+]+).*", "\\1",
+                    fs::path_file(file))
+             )
+           )
+          }),
+          recursive = FALSE
+        )
+      )
+    },
+    error = function(e) {
+      # This handler is used when an unrecoverable error is thrown. This can
+      # happen when, e.g., the csv file cannot be parsed by read_csv(). In this
+      # situation, we want to output all the validations until this point plus
+      # this "unrecoverable" error.
+      e <- error_cnd(
+        class = "unrecoverable_error",
+        where = fs::path_file(path),
+        message = conditionMessage(e)
+      )
+      validations_folder <<- c(validations_folder, list(e))
+    }
   )
 
   validations_metadata <- validate_model_metadata(

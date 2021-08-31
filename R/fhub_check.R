@@ -14,13 +14,18 @@
 fhub_check <- function(location, msg_subject, msg_attribute, test) {
 
   if (test) {
-    message_cnd("fhub_success",
-                where = location,
-                message = paste(msg_subject, "is", msg_attribute))
+    res <- message_cnd(
+      "fhub_success",
+      where = location,
+      message = paste(msg_subject, "is", msg_attribute)
+    )
   } else {
-    warning_cnd("fhub_failure",
-                where = location,
-                message = paste(msg_subject, "has to be", msg_attribute))
+    res <- warning_cnd(
+      "fhub_failure",
+      where = location,
+      message = paste(msg_subject, "has to be", msg_attribute)
+    )
   }
 
+  return(list(res))
 }

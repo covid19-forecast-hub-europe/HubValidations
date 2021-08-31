@@ -5,7 +5,7 @@
 #'
 #' @importFrom dplyr case_when
 #' @importFrom purrr map_lgl map_chr
-#' @importFrom rlang format_error_bullets inherits_any
+#' @importFrom rlang format_error_bullets inherits_any inherits_all
 #' @importFrom stats setNames
 #'
 #' @export
@@ -20,7 +20,7 @@ print.fhub_validations <- function(x, ...) {
     case_when(
       map_lgl(x, ~ inherits_any(.x, "fhub_success")) ~ "v",
       map_lgl(x, ~ inherits_any(.x, "fhub_failure")) ~ "!",
-      map_lgl(x, ~ inherits_any(.x, "error")) ~ "x",
+      map_lgl(x, ~ inherits_any(.x, "unrecoverable_error")) ~ "x",
       TRUE ~ "*"
     )
   )
