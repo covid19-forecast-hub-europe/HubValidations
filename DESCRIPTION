@@ -33,7 +33,8 @@ Suggests:
     testthat (>= 3.0.0),
     knitr,
     rmarkdown,
-    covr
+    covr,
+    withr
 VignetteBuilder: knitr
 Remotes: 
     r-lib/rlang
