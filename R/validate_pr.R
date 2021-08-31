@@ -20,22 +20,73 @@
 
 validate_pr <- function(gh_repo, pr_number, data_folder, ...) {
 
-  pr <- gh::gh(paste("/repos", gh_repo, "pulls", pr_number, sep = "/"))
+  validations <- list()
 
-  pr_head <- pr$head
+  tryCatch({
 
-  tmp <- paste0(tempdir(), "/", pr_head$user$login, "_", pr_head$repo$name)
+    pr <- gh::gh(paste("/repos", gh_repo, "pulls", pr_number, sep = "/"))
 
-  if (!fs::dir_exists(tmp)) {
-    fs::dir_create(tmp)
-    gert::git_clone(
-      url = pr_head$repo$html_url,
-      branch = pr_head$ref,
-      path = tmp
+    pr_head <- pr$head
+
+    tmp <- paste0(tempdir(), "/", pr_head$user$login, "_", pr_head$repo$name)
+
+    if (!fs::dir_exists(tmp)) {
+      fs::dir_create(tmp)
+      gert::git_clone(
+        url = pr_head$repo$html_url,
+        branch = pr_head$ref,
+        path = tmp
+      )
+    }
+
+    validations <- c(
+      validations,
+      validate_repository(fs::path(tmp, data_folder), ...)
     )
-  }
+    },
+    error = function(e) {
+      # This handler is used when an unrecoverable error is thrown. This can
+      # happen when, e.g., the csv file cannot be parsed by read_csv(). In this
+      # situation, we want to output all the validations until this point plus
+      # this "unrecoverable" error.
+      e <- error_cnd(
+        class = "unrecoverable_error",
+        where = gh_repo,
+        message = conditionMessage(e)
+      )
+      validations <<- c(validations, list(e))
+    }
+  )
 
-  validate_repository(fs::path(tmp, data_folder), ...)
+  tryCatch({
 
+    pr_files <- purrr::map_chr(
+      gh::gh(paste("/repos", gh_repo, "pulls", pr_number, "files", sep = "/")),
+      "filename"
+    )
+
+    validations <- c(validations, fhub_check(
+      gh_repo,
+      paste("Only content of", data_folder),
+      "changed",
+      all(startsWith(pr_files, data_folder))
+    ))
+  },
+  error = function(e) {
+    # This handler is used when an unrecoverable error is thrown. This can
+    # happen when, e.g., the csv file cannot be parsed by read_csv(). In this
+    # situation, we want to output all the validations until this point plus
+    # this "unrecoverable" error.
+    e <- error_cnd(
+      class = "unrecoverable_error",
+      where = gh_repo,
+      message = conditionMessage(e)
+    )
+    validations <<- c(validations, list(e))
+  })
+
+  class(validations) <- c("fhub_validations", "list")
+
+  return(validations)
 }
 
