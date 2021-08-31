@@ -8,7 +8,7 @@
 #' @return An object of class `condition` (either `message` or `error` depending
 #'    on the value of `test`)..
 #'
-#' @importFrom rlang message_cnd error_cnd
+#' @importFrom rlang message_cnd warning_cnd
 #'
 #' @noRd
 fhub_check <- function(location, msg_subject, msg_attribute, test) {
@@ -18,9 +18,9 @@ fhub_check <- function(location, msg_subject, msg_attribute, test) {
                 where = location,
                 message = paste(msg_subject, "is", msg_attribute))
   } else {
-    error_cnd("fhub_failure",
-              where = location,
-              message = paste(msg_subject, "has to be", msg_attribute))
+    warning_cnd("fhub_failure",
+                where = location,
+                message = paste(msg_subject, "has to be", msg_attribute))
   }
 
 }

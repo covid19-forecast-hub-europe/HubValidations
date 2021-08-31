@@ -19,7 +19,8 @@ print.fhub_validations <- function(x, ...) {
     ),
     case_when(
       map_lgl(x, ~ inherits_any(.x, "fhub_success")) ~ "v",
-      map_lgl(x, ~ inherits_any(.x, "fhub_failure")) ~ "x",
+      map_lgl(x, ~ inherits_any(.x, "fhub_failure")) ~ "!",
+      map_lgl(x, ~ inherits_any(.x, "error")) ~ "x",
       TRUE ~ "*"
     )
   )
