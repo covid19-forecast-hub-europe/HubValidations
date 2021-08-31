@@ -56,8 +56,6 @@ validate_repository <- function(
       ) %>%
         add_count(.data$team, .data$designation)
 
-      browser()
-
       validations <- c(validations, unlist(
         apply(model_designations, 1, function(x) {
           fhub_check(
