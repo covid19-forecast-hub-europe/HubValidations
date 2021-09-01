@@ -6,6 +6,8 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/epiforecasts/ForecastHubValidations/workflows/R-CMD-check/badge.svg)](https://github.com/epiforecasts/ForecastHubValidations/actions)
+[![Coverage
+status](https://codecov.io/gh/epiforecasts/ForecastHubValidations/branch/main/graph/badge.svg)](https://codecov.io/github/epiforecasts/ForecastHubValidations?branch=main)
 <!-- badges: end -->
 
 This package aims at providing a simple interface to run validations on
