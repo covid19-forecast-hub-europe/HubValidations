@@ -24,39 +24,46 @@ validate_pr <- function(gh_repo, pr_number, data_folder, ...) {
 
   tryCatch({
 
-    pr <- gh::gh(paste("/repos", gh_repo, "pulls", pr_number, sep = "/"))
+    if (identical(Sys.getenv("GITHUB_ACTIONS"), "true") &&
+        identical(Sys.getenv("GITHUB_REPOSITORY", gh_repo))) {
+      validations <- c(
+        validations,
+        validate_repository(data_folder, ...)
+      )
+    } else {
+      pr <- gh::gh(paste("/repos", gh_repo, "pulls", pr_number, sep = "/"))
 
-    pr_head <- pr$head
+      pr_head <- pr$head
 
-    tmp <- paste0(tempdir(), "/", pr_head$user$login, "_", pr_head$repo$name)
+      tmp <- paste0(tempdir(), "/", pr_head$user$login, "_", pr_head$repo$name)
 
-    if (!fs::dir_exists(tmp)) {
-      fs::dir_create(tmp)
-      gert::git_clone(
-        url = pr_head$repo$html_url,
-        branch = pr_head$ref,
-        path = tmp
+      if (!fs::dir_exists(tmp)) {
+        fs::dir_create(tmp)
+        gert::git_clone(
+          url = pr_head$repo$html_url,
+          branch = pr_head$ref,
+          path = tmp
+        )
+      }
+
+      validations <- c(
+        validations,
+        validate_repository(fs::path(tmp, data_folder), ...)
       )
     }
-
-    validations <- c(
-      validations,
-      validate_repository(fs::path(tmp, data_folder), ...)
+  },
+  error = function(e) {
+    # This handler is used when an unrecoverable error is thrown. This can
+    # happen when, e.g., the csv file cannot be parsed by read_csv(). In this
+    # situation, we want to output all the validations until this point plus
+    # this "unrecoverable" error.
+    e <- error_cnd(
+      class = "unrecoverable_error",
+      where = gh_repo,
+      message = conditionMessage(e)
     )
-    },
-    error = function(e) {
-      # This handler is used when an unrecoverable error is thrown. This can
-      # happen when, e.g., the csv file cannot be parsed by read_csv(). In this
-      # situation, we want to output all the validations until this point plus
-      # this "unrecoverable" error.
-      e <- error_cnd(
-        class = "unrecoverable_error",
-        where = gh_repo,
-        message = conditionMessage(e)
-      )
-      validations <<- c(validations, list(e))
-    }
-  )
+    validations <<- c(validations, list(e))
+  })
 
   tryCatch({
 
