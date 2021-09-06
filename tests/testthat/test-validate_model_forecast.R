@@ -50,6 +50,25 @@ test_that("Failed validation", {
 
 })
 
+test_that("Erroring validation", {
+
+  tdir2 <- fs::path(tempdir(), "error_fh_validations")
+
+  withr::with_dir(tdir2, {
+    res <- expect_silent({
+      validate_model_forecast(
+        fs::path("testdata", "example-model", "2021-07-19-example-model.csv"),
+        fs::path("testdata", "forecast-schema.yml")
+      )
+    })
+  })
+
+  expect_true(any(map_lgl(res, rlang::is_error)))
+
+  expect_true(any(map_lgl(res, ~ rlang::inherits_any(.x, "unrecoverable_error"))))
+
+})
+
 test_that("Number of validations", {
 
   res <- validate_model_forecast(
