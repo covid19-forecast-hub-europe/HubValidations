@@ -35,3 +35,29 @@ summary.fhub_validations <- function(x, ...) {
   NULL
 
 }
+
+#' @export
+report <- function(x, ...) {
+  UseMethod("report")
+}
+
+
+#' @export
+report.fhub_validations <- function(x, ...) {
+
+  failures <- x[map_lgl(x, ~ inherits_any(.x, "fhub_failure"))]
+  errors <- x[map_lgl(x, ~ inherits_any(.x, "fhub_failure"))]
+
+  pb <- c(failures, errors)
+  class(pb) <- c("fhub_validations", "list")
+
+  if (length(pb) > 0) {
+    print(pb)
+    stop(
+      "The validation checks produced some errors reported above.",
+      call. = FALSE
+    )
+  }
+
+  return(TRUE)
+}
