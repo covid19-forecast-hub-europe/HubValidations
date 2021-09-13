@@ -37,13 +37,13 @@ summary.fhub_validations <- function(x, ...) {
 }
 
 #' @export
-report <- function(x, ...) {
+check_for_errors <- function(x, ...) {
   UseMethod("report")
 }
 
 
 #' @export
-report.fhub_validations <- function(x, ...) {
+check_for_errors.fhub_validations <- function(x, ...) {
 
   failures <- x[map_lgl(x, ~ inherits_any(.x, "fhub_failure"))]
   errors <- x[map_lgl(x, ~ inherits_any(.x, "fhub_failure"))]
