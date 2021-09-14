@@ -31,7 +31,11 @@ validate_pr <- function(gh_repo, pr_number, data_folder, ...) {
         validate_repository(data_folder, ...)
       )
     } else {
-      pr <- gh::gh(paste("/repos", gh_repo, "pulls", pr_number, sep = "/"))
+      pr <- gh::gh(
+        "/repos/{gh_repo}/pulls/{pr_number}",
+        gh_repo = gh_repo,
+        pr_number = pr_number
+      )
 
       pr_head <- pr$head
 
@@ -68,7 +72,11 @@ validate_pr <- function(gh_repo, pr_number, data_folder, ...) {
   tryCatch({
 
     pr_files <- purrr::map_chr(
-      gh::gh(paste("/repos", gh_repo, "pulls", pr_number, "files", sep = "/")),
+      gh::gh(
+        "/repos/{gh_repo}/pulls/{pr_number}/files",
+        gh_repo = gh_repo,
+        pr_number = pr_number
+      ),
       "filename"
     )
 
