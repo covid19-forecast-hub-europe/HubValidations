@@ -18,7 +18,7 @@ test_that("Output class", {
 
 })
 
-test_that("Succesful validation", {
+test_that("Successful validation", {
 
   res <- validate_model_folder(
     system.file("testdata", "example-model",

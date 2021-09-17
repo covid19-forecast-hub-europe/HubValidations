@@ -17,7 +17,7 @@ test_that("Output class", {
 
 })
 
-test_that("Succesful validation", {
+test_that("Successful validation", {
 
   res <- validate_model_metadata(
     system.file("testdata", "example-model", "metadata-example-model.yml",
