@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • ForecastHubValidations</title>
+<title>Raise conditions stored in a fhub_validations object — check_for_errors • ForecastHubValidations</title>
 
 
 <!-- jquery -->
@@ -41,7 +41,9 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Raise conditions stored in a fhub_validations object — check_for_errors" />
+<meta property="og:description" content="This is meant to be used in CI workflows to raise conditions from
+fhub_validations objects." />
 
 
 
@@ -60,7 +62,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -119,78 +121,35 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Raise conditions stored in a <code>fhub_validations</code> object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/epiforecasts/ForecastHubValidations/blob/master/R/fhub_validations_methods.R'><code>R/fhub_validations_methods.R</code></a></small>
+    <div class="hidden name"><code>check_for_errors.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>This is meant to be used in CI workflows to raise conditions from
+<code>fhub_validations</code> objects.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>check_for_errors</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="check_for_errors.html">check_for_errors()</a></code> </p>
-        </td>
-        <td><p>Raise conditions stored in a <code>fhub_validations</code> object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="print.fhub_validations.html">print(<i>&lt;fhub_validations&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Print results of <code>validate_...()</code> function as a bullet list</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="validate_model_folder.html">validate_model_folder()</a></code> </p>
-        </td>
-        <td><p>Validate forecasts and metadata for a given model/folder</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="validate_model_forecast.html">validate_model_forecast()</a></code> </p>
-        </td>
-        <td><p>Validate model forecast file</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="validate_model_metadata.html">validate_model_metadata()</a></code> </p>
-        </td>
-        <td><p>Validate model metadata file</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="validate_pr.html">validate_pr()</a></code> </p>
-        </td>
-        <td><p>Validate forecast hub from pull request</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="validate_repository.html">validate_repository()</a></code> </p>
-        </td>
-        <td><p>Validate a complete repository containing multiple forecast folders</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>A <code>fhub_validations</code> object</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>An error if one of the elements of <code>x</code> is of class <code>fhub_failure</code> or
+<code>fhub_unrecoverable_error</code>. <code>TRUE</code> invisibly otherwise.</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
