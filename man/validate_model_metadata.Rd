@@ -21,7 +21,7 @@ Validate model metadata file
 validate_model_metadata(
   system.file("testdata", "example-model", "metadata-example-model.yml",
               package = "ForecastHubValidations"),
-  system.file("testdata", "metadata-schema.yml",
+  system.file("testdata", "schema-metadata.yml",
               package = "ForecastHubValidations")
 )
 

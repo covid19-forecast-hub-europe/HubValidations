@@ -24,7 +24,7 @@ validate_model_forecast(
     package = "ForecastHubValidations"
   ),
   system.file(
-    "testdata", "forecast-schema.yml",
+    "testdata", "schema-forecast.yml",
     package = "ForecastHubValidations"
   )
 )

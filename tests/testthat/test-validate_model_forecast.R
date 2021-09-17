@@ -4,7 +4,7 @@ test_that("Output class", {
     validate_model_forecast(
       system.file("testdata", "example-model", "2021-07-26-example-model.csv",
                   package = "ForecastHubValidations"),
-      system.file("testdata", "forecast-schema.yml",
+      system.file("testdata", "schema-forecast.yml",
                   package = "ForecastHubValidations")
     )})
 
@@ -21,7 +21,7 @@ test_that("Succesful validation", {
   res <- validate_model_forecast(
     system.file("testdata", "example-model", "2021-07-26-example-model.csv",
                 package = "ForecastHubValidations"),
-    system.file("testdata", "forecast-schema.yml",
+    system.file("testdata", "schema-forecast.yml",
                 package = "ForecastHubValidations")
   )
 
@@ -39,7 +39,7 @@ test_that("Failed validation", {
     res <- expect_silent({
       validate_model_forecast(
         fs::path("testdata", "example-model", "2021-07-18-example-model.csv"),
-        fs::path("testdata", "forecast-schema.yml")
+        fs::path("testdata", "schema-forecast.yml")
       )
     })
   })
@@ -58,7 +58,7 @@ test_that("Erroring validation", {
     res <- expect_silent({
       validate_model_forecast(
         fs::path("testdata", "example-model", "2021-07-19-example-model.csv"),
-        fs::path("testdata", "forecast-schema.yml")
+        fs::path("testdata", "schema-forecast.yml")
       )
     })
   })
@@ -74,7 +74,7 @@ test_that("Number of validations", {
   res <- validate_model_forecast(
     system.file("testdata", "example-model", "2021-07-26-example-model.csv",
                 package = "ForecastHubValidations"),
-    system.file("testdata", "forecast-schema.yml",
+    system.file("testdata", "schema-forecast.yml",
                 package = "ForecastHubValidations")
   )
 

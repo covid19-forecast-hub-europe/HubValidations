@@ -4,7 +4,7 @@ test_that("Output class", {
     validate_model_metadata(
       system.file("testdata", "example-model", "metadata-example-model.yml",
                   package = "ForecastHubValidations"),
-      system.file("testdata", "metadata-schema.yml",
+      system.file("testdata", "schema-metadata.yml",
                   package = "ForecastHubValidations")
     )
   })
@@ -22,7 +22,7 @@ test_that("Succesful validation", {
   res <- validate_model_metadata(
     system.file("testdata", "example-model", "metadata-example-model.yml",
               package = "ForecastHubValidations"),
-    system.file("testdata", "metadata-schema.yml",
+    system.file("testdata", "schema-metadata.yml",
               package = "ForecastHubValidations")
   )
 
@@ -40,7 +40,7 @@ test_that("Failed validation", {
     res <- expect_silent({
       validate_model_metadata(
         fs::path("testdata", "example-model2", "metadata-example-model-fail.yml"),
-        fs::path("testdata", "metadata-schema.yml")
+        fs::path("testdata", "schema-metadata.yml")
       )
     })
   })
@@ -56,7 +56,7 @@ test_that("Number of validations", {
   res <- validate_model_metadata(
     system.file("testdata", "example-model", "metadata-example-model.yml",
                 package = "ForecastHubValidations"),
-    system.file("testdata", "metadata-schema.yml",
+    system.file("testdata", "schema-metadata.yml",
                 package = "ForecastHubValidations")
   )
 

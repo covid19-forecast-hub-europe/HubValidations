@@ -6,8 +6,8 @@
 \usage{
 validate_repository(
   data_folder = ".",
-  forecast_schema = file.path(data_folder, "forecast-schema.yml"),
-  metadata_schema = file.path(data_folder, "metadata-schema.yml")
+  forecast_schema = file.path(data_folder, "schema-forecast.yml"),
+  metadata_schema = file.path(data_folder, "schema-metadata.yml")
 )
 }
 \arguments{

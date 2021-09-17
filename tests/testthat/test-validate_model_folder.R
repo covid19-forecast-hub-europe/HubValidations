@@ -4,9 +4,9 @@ test_that("Output class", {
     validate_model_folder(
      system.file("testdata", "example-model",
                  package = "ForecastHubValidations"),
-     system.file("testdata", "forecast-schema.yml",
+     system.file("testdata", "schema-forecast.yml",
                  package = "ForecastHubValidations"),
-     system.file("testdata", "metadata-schema.yml",
+     system.file("testdata", "schema-metadata.yml",
                  package = "ForecastHubValidations")
   )})
 
@@ -23,9 +23,9 @@ test_that("Succesful validation", {
   res <- validate_model_folder(
     system.file("testdata", "example-model",
                 package = "ForecastHubValidations"),
-    system.file("testdata", "forecast-schema.yml",
+    system.file("testdata", "schema-forecast.yml",
                 package = "ForecastHubValidations"),
-    system.file("testdata", "metadata-schema.yml",
+    system.file("testdata", "schema-metadata.yml",
                 package = "ForecastHubValidations")
   )
 
@@ -43,8 +43,8 @@ test_that("Failed validation", {
     res <- expect_silent({
       validate_model_folder(
         fs::path("testdata", "example-model"),
-        fs::path("testdata", "forecast-schema.yml"),
-        fs::path("testdata", "metadata-schema.yml")
+        fs::path("testdata", "schema-forecast.yml"),
+        fs::path("testdata", "schema-metadata.yml")
       )
     })
   })
@@ -60,9 +60,9 @@ test_that("Number of validations", {
   res <- validate_model_folder(
     system.file("testdata", "example-model",
                 package = "ForecastHubValidations"),
-    system.file("testdata", "forecast-schema.yml",
+    system.file("testdata", "schema-forecast.yml",
                 package = "ForecastHubValidations"),
-    system.file("testdata", "metadata-schema.yml",
+    system.file("testdata", "schema-metadata.yml",
                 package = "ForecastHubValidations")
   )
 

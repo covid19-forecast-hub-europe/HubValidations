@@ -22,7 +22,7 @@ fs::dir_copy(
   tdir2
 )
 
-file_to_break <- fs::path(tdir2, "testdata", "forecast-schema.yml")
+file_to_break <- fs::path(tdir2, "testdata", "schema-forecast.yml")
 
 d <- readLines(file_to_break)
 d[1] <- paste0(d[1], ":")
