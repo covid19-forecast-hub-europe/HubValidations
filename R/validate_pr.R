@@ -3,6 +3,9 @@
 #' @param gh_repo GitHub repository address in the format `username/repo`
 #' @param pr_number Number of the pull request to validate
 #' @param data_folder Path to the folder containing forecasts in this `gh_repo`
+#' @param local Logical. Is this function called from your local computer or
+#' from a continuous integration system. By default, it tries to guess the
+#' answer based on the values of some environment variables
 #' @param ... Arguments passed to [validate_repository()]
 #'
 #' @return An object of class `fhub_validations`.
@@ -18,14 +21,20 @@
 #' )
 #' }
 
-validate_pr <- function(gh_repo, pr_number, data_folder, ...) {
+validate_pr <- function(
+  gh_repo,
+  pr_number,
+  data_folder,
+  local = identical(Sys.getenv("GITHUB_ACTIONS"), "true") &&
+          identical(Sys.getenv("GITHUB_REPOSITORY", gh_repo)),
+  ...
+) {
 
   validations <- list()
 
   tryCatch({
 
-    if (identical(Sys.getenv("GITHUB_ACTIONS"), "true") &&
-        identical(Sys.getenv("GITHUB_REPOSITORY", gh_repo))) {
+    if (!local) {
       validations <- c(
         validations,
         validate_repository(data_folder, ...)
