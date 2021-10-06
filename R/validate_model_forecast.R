@@ -65,10 +65,19 @@ validate_model_forecast <- function(forecast_file, forecast_schema) {
       valid <- json_validate(forecast_json, schema_json, engine = "ajv",
                              verbose = TRUE, greedy = TRUE)
 
+      if (!valid) {
+        pb <- attr(valid, "errors") %>%
+          transmute(m = paste("-", dataPath, message)) %>%
+          pull(m)
+      } else {
+        pb <- NULL
+      }
+
       validations <- c(validations, fhub_check(
         forecast_file,
         valid,
-        "Forecast data", "formed of the expected columns with correct type"
+        "Forecast data", "formed of the expected columns with correct type",
+        paste(pb, collapse = "\n ")
       ))
     },
     error = function(e) {

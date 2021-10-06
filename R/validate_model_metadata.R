@@ -8,6 +8,7 @@
 #' @importFrom yaml read_yaml
 #' @importFrom jsonlite toJSON
 #' @importFrom jsonvalidate json_validate
+#' @importFrom dplyr pull transmute
 #'
 #' @export
 #'
@@ -56,10 +57,19 @@ validate_model_metadata <- function(metadata_file, metadata_schema) {
       valid <- json_validate(metadata_json, schema_json, engine = "ajv",
                              verbose = TRUE, greedy = TRUE)
 
+      if (!valid) {
+        pb <- attr(valid, "errors") %>%
+          transmute(m = paste("-", instancePath, message)) %>%
+          pull(m)
+      } else {
+        pb <- NULL
+      }
+
       validations <- c(validations, fhub_check(
         metadata_file,
         valid,
-        "Metadata file", "consistent with schema specifications"
+        "Metadata file", "consistent with schema specifications",
+        paste(pb, collapse = "\n ")
       ))
     },
     error = function(e) {
