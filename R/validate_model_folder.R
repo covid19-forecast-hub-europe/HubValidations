@@ -33,17 +33,17 @@ validate_model_folder <- function(path, forecast_schema, metadata_schema) {
       validations_folder <- c(validations_folder,
         fhub_check(
           fs::path_file(path),
-          "There", "only one metadata file",
-          identical(length(metadata_file), 1L)
+          identical(length(metadata_file), 1L),
+          "There", "only one metadata file"
         ),
         fhub_check(
           fs::path_file(path),
-          "Folder name", "the same as the model name in metadata filename",
           identical(
             fs::path_file(path),
             gsub("^.*-([a-zA-Z0-9_+]+-[a-zA-Z0-9_+]+).*", "\\1",
                  fs::path_file(metadata_file))
-          )
+          ),
+          "Folder name", "the same as the model name in metadata filename"
         )
       )
 
@@ -53,12 +53,12 @@ validate_model_folder <- function(path, forecast_schema, metadata_schema) {
           lapply(forecast_files, function(file) {
            fhub_check(
              fs::path_file(file),
-             "Folder name", "identical to model name in forecast file",
              identical(
                fs::path_file(path),
                gsub("^.*-([a-zA-Z0-9_+]+-[a-zA-Z0-9_+]+).*", "\\1",
                     fs::path_file(file))
-             )
+             ),
+             "Folder name", "identical to model name in forecast file"
            )
           }),
           recursive = FALSE

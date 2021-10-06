@@ -29,14 +29,13 @@ validate_model_metadata <- function(metadata_file, metadata_schema) {
         validations,
         fhub_check(
           metadata_file,
-          "Metadata file", "using the `.txt` extension",
-          fs::path_ext(metadata_file) == "txt"
+          fs::path_ext(metadata_file) == "txt",
+          "Metadata file", "using the `.txt` extension"
         ),
         fhub_check(
           metadata_file,
-          "Metadata filename", "starting with 'metadata-'",
-          grepl("^metadata-",
-                fs::path_file(metadata_file))
+          grepl("^metadata-", fs::path_file(metadata_file)),
+          "Metadata filename", "starting with 'metadata-'"
         )
       )
 
@@ -44,9 +43,8 @@ validate_model_metadata <- function(metadata_file, metadata_schema) {
 
       validations <- c(validations, fhub_check(
         metadata_file,
-        "Metadata filename", "the same as `model_abbr`",
-        grepl(metadata$model_abbr,
-              fs::path_file(metadata_file))
+        grepl(metadata$model_abbr, fs::path_file(metadata_file)),
+        "Metadata filename", "the same as `model_abbr`"
       ))
 
       # For some reason, jsonvalidate doesn't like it when we don't unbox
@@ -60,8 +58,8 @@ validate_model_metadata <- function(metadata_file, metadata_schema) {
 
       validations <- c(validations, fhub_check(
         metadata_file,
-        "Metadata file", "consistent with schema specifications",
-        valid
+        valid,
+        "Metadata file", "consistent with schema specifications"
       ))
     },
     error = function(e) {

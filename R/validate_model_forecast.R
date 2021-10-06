@@ -30,11 +30,11 @@ validate_model_forecast <- function(forecast_file, forecast_schema) {
     {
       validations <- c(validations, fhub_check(
         forecast_file,
-        "Filename", "formed of a date and a model name",
         grepl(
           "^\\d{4}\\-\\d{2}\\-\\d{2}-[a-zA-Z0-9_+]+-[a-zA-Z0-9_+]+\\.csv$",
           fs::path_file(forecast_file)
-        )
+        ),
+        "Filename", "formed of a date and a model name"
       ))
 
       forecast <- readr::read_csv(
@@ -44,7 +44,6 @@ validate_model_forecast <- function(forecast_file, forecast_schema) {
 
       validations <- c(validations, fhub_check(
         forecast_file,
-        "`forecast_date` column", "identical to the date in filename",
         identical(
           unique(forecast$forecast_date),
           as.Date(
@@ -53,7 +52,8 @@ validate_model_forecast <- function(forecast_file, forecast_schema) {
               "\\1", fs::path_file(forecast_file)
             )
           )
-        )
+        ),
+        "`forecast_date` column", "identical to the date in filename"
       ))
 
       forecast_json <- toJSON(forecast, dataframe = "columns", na = "null")
@@ -67,8 +67,8 @@ validate_model_forecast <- function(forecast_file, forecast_schema) {
 
       validations <- c(validations, fhub_check(
         forecast_file,
-        "Forecast data", "formed of the expected columns with correct type",
-        valid
+        valid,
+        "Forecast data", "formed of the expected columns with correct type"
       ))
     },
     error = function(e) {

@@ -60,8 +60,8 @@ validate_repository <- function(
         apply(model_designations, 1, function(x) {
           fhub_check(
             x[["filename"]],
-            "There", "only one primary model for a given team",
-            x[["n"]] == 1
+            x[["n"]] == 1,
+            "There", "only one primary model for a given team"
           )
         }), recursive = FALSE))
     },
