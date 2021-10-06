@@ -54,6 +54,7 @@ validate_repository <- function(
             designation = read_yaml(.x)[["team_model_designation"]]
           )
       ) %>%
+        dplyr::filter(.data$designation == "primary") %>%
         add_count(.data$team, .data$designation)
 
       validations <- c(validations, unlist(
