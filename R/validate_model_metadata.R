@@ -53,13 +53,15 @@ validate_model_metadata <- function(metadata_file, metadata_schema) {
       metadata_json <- toJSON(metadata, auto_unbox = TRUE)
       schema_json <- toJSON(read_yaml(metadata_schema), auto_unbox = TRUE)
 
+      # Default engine (imjv) doesn't support schema version above 4 so we
+      # switch to ajv that supports all versions
+      valid <- json_validate(metadata_json, schema_json, engine = "ajv",
+                             verbose = TRUE, greedy = TRUE)
+
       validations <- c(validations, fhub_check(
         metadata_file,
         "Metadata file", "consistent with schema specifications",
-        # Default engine (imjv) doesn't support schema version above 4 so we
-        # switch to ajv that supports all versions
-        json_validate(metadata_json, schema_json, engine = "ajv",
-                      verbose = TRUE, greedy = TRUE)
+        valid
       ))
     },
     error = function(e) {
