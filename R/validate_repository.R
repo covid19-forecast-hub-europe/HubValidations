@@ -42,7 +42,7 @@ validate_repository <- function(
       metadata_files <- fs::dir_ls(
         path = data_folder,
         type = "file",
-        regexp = "([a-zA-Z0-9_+]+-[a-zA-Z0-9_+]+)/metadata\\-.\\1\\.yml",
+        regexp = "([a-zA-Z0-9_+]+-[a-zA-Z0-9_+]+)/metadata\\-.\\1\\.txt",
         recurse = TRUE
       )
 

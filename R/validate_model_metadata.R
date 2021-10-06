@@ -13,7 +13,7 @@
 #'
 #' @examples
 #' validate_model_metadata(
-#'   system.file("testdata", "example-model", "metadata-example-model.yml",
+#'   system.file("testdata", "example-model", "metadata-example-model.txt",
 #'               package = "ForecastHubValidations"),
 #'   system.file("testdata", "schema-metadata.yml",
 #'               package = "ForecastHubValidations")
@@ -29,8 +29,8 @@ validate_model_metadata <- function(metadata_file, metadata_schema) {
         validations,
         fhub_check(
           metadata_file,
-          "Metadata file", "using the `.yml` extension",
-          fs::path_ext(metadata_file) == "yml"
+          "Metadata file", "using the `.txt` extension",
+          fs::path_ext(metadata_file) == "txt"
         ),
         fhub_check(
           metadata_file,
