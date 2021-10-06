@@ -28,7 +28,7 @@ validate_model_folder <- function(path, forecast_schema, metadata_schema) {
 
       forecast_files <- all_files[fs::path_ext(all_files) == "csv"]
 
-      metadata_file <- all_files[fs::path_ext(all_files) == "yml"]
+      metadata_file <- all_files[grepl("^metadata", basename(all_files))]
 
       validations_folder <- c(validations_folder,
         fhub_check(
