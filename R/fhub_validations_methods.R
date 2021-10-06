@@ -57,7 +57,7 @@ check_for_errors <- function(x) {
   if (length(pb) > 0) {
     print(pb)
     stop(
-      "The validation checks produced some errors reported above.",
+      "\nThe validation checks produced some errors reported above.",
       call. = FALSE
     )
   }
