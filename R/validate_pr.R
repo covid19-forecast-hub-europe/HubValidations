@@ -34,7 +34,7 @@ validate_pr <- function(
 
   tryCatch({
 
-    if (!local) {
+    if (local) {
       validations <- c(
         validations,
         validate_repository(data_folder, ...)
