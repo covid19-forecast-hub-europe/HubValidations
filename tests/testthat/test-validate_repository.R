@@ -50,6 +50,6 @@ test_that("Number of validations", {
     system.file("testdata", package = "ForecastHubValidations")
   )
 
-  expect_length(res, 30L)
+  expect_length(res, 29L)
 
 })
