@@ -59,8 +59,8 @@ validate_model_metadata <- function(metadata_file, metadata_schema) {
 
       if (!valid) {
         pb <- attr(valid, "errors") %>%
-          transmute(m = paste("-", instancePath, message)) %>%
-          pull(m)
+          transmute(m = paste("-", .data$instancePath, .data$message)) %>%
+          pull(.data$m)
       } else {
         pb <- NULL
       }

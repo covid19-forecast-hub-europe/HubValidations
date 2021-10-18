@@ -67,8 +67,8 @@ validate_model_forecast <- function(forecast_file, forecast_schema) {
 
       if (!valid) {
         pb <- attr(valid, "errors") %>%
-          transmute(m = paste("-", dataPath, message)) %>%
-          pull(m)
+          transmute(m = paste("-", .data$dataPath, .data$message)) %>%
+          pull(.data$m)
       } else {
         pb <- NULL
       }
