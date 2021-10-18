@@ -26,7 +26,7 @@ validate_pr <- function(
   pr_number,
   data_folder,
   local = identical(Sys.getenv("GITHUB_ACTIONS"), "true") &&
-          identical(Sys.getenv("GITHUB_REPOSITORY", gh_repo)),
+          identical(Sys.getenv("GITHUB_REPOSITORY"), gh_repo),
   ...
 ) {
 
