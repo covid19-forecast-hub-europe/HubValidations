@@ -57,6 +57,11 @@ validate_model_forecast <- function(forecast_file, forecast_schema) {
       ))
 
       forecast_json <- toJSON(forecast, dataframe = "columns", na = "null")
+
+      if (!file.exists(forecast_schema)) {
+        stop("Data schema file (`", forecast_schema, "`) does not exist",
+             call. = FALSE)
+      }
       # For some reason, jsonvalidate doesn't like it when we don't unbox
       schema_json <- toJSON(read_yaml(forecast_schema), auto_unbox = TRUE)
 

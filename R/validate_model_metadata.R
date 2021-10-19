@@ -50,6 +50,12 @@ validate_model_metadata <- function(metadata_file, metadata_schema) {
 
       # For some reason, jsonvalidate doesn't like it when we don't unbox
       metadata_json <- toJSON(metadata, auto_unbox = TRUE)
+
+      if (!file.exists(metadata_schema)) {
+        stop("Metadata schema file (`", metadata_schema, "`) does not exist",
+             call. = FALSE)
+      }
+
       schema_json <- toJSON(read_yaml(metadata_schema), auto_unbox = TRUE)
 
       # Default engine (imjv) doesn't support schema version above 4 so we
