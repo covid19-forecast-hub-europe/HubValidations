@@ -11,7 +11,7 @@
 #' @export
 check_for_errors <- function(x) {
   failures <- x[map_lgl(x, ~ inherits_any(.x, "fhub_failure"))]
-  errors <- x[map_lgl(x, ~ inherits_any(.x, "fhub_unrecoverable_error"))]
+  errors <- x[map_lgl(x, ~ inherits_any(.x, "unrecoverable_error"))]
 
   pb <- c(failures, errors)
   class(pb) <- c("fhub_validations", "list")
