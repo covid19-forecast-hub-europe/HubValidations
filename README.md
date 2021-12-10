@@ -15,7 +15,7 @@ data and metadata submitted to a forecast hub. Validation tests can be
 run at different levels (single file, single folder, whole repository)
 and locally as well as part of a continuous integration workflow. For
 more information, please read the [“Package design”
-vignette](https://epiforecasts.github.io/ForecastHubValidations/articles/design.html).
+vignette](https://epiforecasts.io/ForecastHubValidations/articles/tests.html).
 
 ## Installation
 
