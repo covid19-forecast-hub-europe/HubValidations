@@ -20,6 +20,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -32,18 +34,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ForecastHubValidations</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -62,7 +58,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/epiforecasts/ForecastHubValidations/">
+  <a href="https://github.com/epiforecasts/ForecastHubValidations/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -83,16 +79,16 @@
       <h1 data-toc-skip>Package design</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/epiforecasts/ForecastHubValidations/blob/master/vignettes/tests.Rmd"><code>vignettes/tests.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/epiforecasts/ForecastHubValidations/blob/HEAD/vignettes/tests.Rmd" class="external-link"><code>vignettes/tests.Rmd</code></a></small>
       <div class="hidden name"><code>tests.Rmd</code></div>
 
     </div>
 
     
     
-<div id="requirements" class="section level2">
-<h2 class="hasAnchor">
-<a href="#requirements" class="anchor"></a>Requirements</h2>
+<div class="section level2">
+<h2 id="requirements">Requirements<a class="anchor" aria-label="anchor" href="#requirements"></a>
+</h2>
 <p>The package functionality must respect the following rules:</p>
 <ul>
 <li>The data and metadata can be tested separately.</li>
@@ -100,38 +96,38 @@
 <li>There is not hardcoded dependency to GitHub (or to a specific repository). Users can choose any submission process and still be able to run the validation code.</li>
 </ul>
 </div>
-<div id="functionality-dropped-from-the-previous-iteration" class="section level2">
-<h2 class="hasAnchor">
-<a href="#functionality-dropped-from-the-previous-iteration" class="anchor"></a>Functionality dropped from the previous iteration</h2>
+<div class="section level2">
+<h2 id="functionality-dropped-from-the-previous-iteration">Functionality dropped from the previous iteration<a class="anchor" aria-label="anchor" href="#functionality-dropped-from-the-previous-iteration"></a>
+</h2>
 <ul>
 <li>The GitHub issue labelling feature will be moved to a different action directly in the main repository because it is not part of the validation process/</li>
-<li>The comment linking to the forecast previsualisation will be moved to a different action, controlled by a <a href="https://docs.github.com/en/actions/reference/events-that-trigger-workflows#workflow_run"><code>workflow_run</code> event</a> based on the success of the validations.</li>
+<li>The comment linking to the forecast previsualisation will be moved to a different action, controlled by a <a href="https://docs.github.com/en/actions/reference/events-that-trigger-workflows#workflow_run" class="external-link"><code>workflow_run</code> event</a> based on the success of the validations.</li>
 <li>The zoltar upload workflow will be moved to a different repository (possibly the main repository).</li>
 <li>The check that predicted values do not exceed population size is dropped entirely. I don’t believe it’s our role to gatekeep this. We only want to validate the forecast format, not the forecast itself.</li>
 </ul>
 </div>
-<div id="proposed-interface" class="section level2">
-<h2 class="hasAnchor">
-<a href="#proposed-interface" class="anchor"></a>Proposed interface</h2>
+<div class="section level2">
+<h2 id="proposed-interface">Proposed interface<a class="anchor" aria-label="anchor" href="#proposed-interface"></a>
+</h2>
 <ul>
 <li>
-<code><a href="../reference/validate_model_forecast.html">validate_model_forecast(file = )</a></code>: validate a single <code>.csv</code> forecast file.</li>
+<code>validate_model_forecast(file = )</code>: validate a single <code>.csv</code> forecast file.</li>
 <li>
-<code><a href="../reference/validate_model_metadata.html">validate_model_metadata(file = )</a></code>: validate a single <code>.yml</code> metadata file.</li>
+<code>validate_model_metadata(file = )</code>: validate a single <code>.yml</code> metadata file.</li>
 <li>
-<code><a href="../reference/validate_model_folder.html">validate_model_folder(path = )</a></code>: validate all the <code>.csv</code> forecast files and the <code>.yml</code> metadata file in a given folder.</li>
+<code>validate_model_folder(path = )</code>: validate all the <code>.csv</code> forecast files and the <code>.yml</code> metadata file in a given folder.</li>
 <li>
-<code><a href="../reference/validate_repository.html">validate_repository(path = )</a></code>: validate all model folders in a given folder / repository</li>
+<code>validate_repository(path = )</code>: validate all model folders in a given folder / repository</li>
 <li>
-<code><a href="../reference/validate_pr.html">validate_pr(url = )</a></code>: validate all the files edited in a pull request / all the relevant folders. Identifies which files have been modified and dispatch them to the relevant validation functions.</li>
+<code>validate_pr(url = )</code>: validate all the files edited in a pull request / all the relevant folders. Identifies which files have been modified and dispatch them to the relevant validation functions.</li>
 </ul>
 </div>
-<div id="tests" class="section level2">
-<h2 class="hasAnchor">
-<a href="#tests" class="anchor"></a>Tests</h2>
-<div id="validate_model_forecast" class="section level3">
-<h3 class="hasAnchor">
-<a href="#validate_model_forecast" class="anchor"></a><code>validate_model_forecast()</code>
+<div class="section level2">
+<h2 id="tests">Tests<a class="anchor" aria-label="anchor" href="#tests"></a>
+</h2>
+<div class="section level3">
+<h3 id="validate_model_forecast">
+<code>validate_model_forecast()</code><a class="anchor" aria-label="anchor" href="#validate_model_forecast"></a>
 </h3>
 <ul>
 <li>test that file name follow the required format</li>
@@ -149,9 +145,9 @@
 <li>test that locations match locations in the config file</li>
 </ul>
 </div>
-<div id="validate_model_metadata" class="section level3">
-<h3 class="hasAnchor">
-<a href="#validate_model_metadata" class="anchor"></a><code>validate_model_metadata()</code>
+<div class="section level3">
+<h3 id="validate_model_metadata">
+<code>validate_model_metadata()</code><a class="anchor" aria-label="anchor" href="#validate_model_metadata"></a>
 </h3>
 <ul>
 <li>validate against schema</li>
@@ -161,9 +157,9 @@
 </li>
 </ul>
 </div>
-<div id="validate_model_folder" class="section level3">
-<h3 class="hasAnchor">
-<a href="#validate_model_folder" class="anchor"></a><code>validate_model_folder()</code>
+<div class="section level3">
+<h3 id="validate_model_folder">
+<code>validate_model_folder()</code><a class="anchor" aria-label="anchor" href="#validate_model_folder"></a>
 </h3>
 <ul>
 <li>tests from <code><a href="../reference/validate_model_forecast.html">validate_model_forecast()</a></code>
@@ -173,17 +169,17 @@
 <li>test that the <code>.csv</code> forecast files and <code>.yml</code> model metadata file start with the name of the folder</li>
 </ul>
 </div>
-<div id="validate_repository" class="section level3">
-<h3 class="hasAnchor">
-<a href="#validate_repository" class="anchor"></a><code>validate_repository()</code>
+<div class="section level3">
+<h3 id="validate_repository">
+<code>validate_repository()</code><a class="anchor" aria-label="anchor" href="#validate_repository"></a>
 </h3>
 <ul>
 <li>test that each team only has a single <code>primary</code> model</li>
 </ul>
 </div>
-<div id="validate_pr" class="section level3">
-<h3 class="hasAnchor">
-<a href="#validate_pr" class="anchor"></a><code>validate_pr()</code>
+<div class="section level3">
+<h3 id="validate_pr">
+<code>validate_pr()</code><a class="anchor" aria-label="anchor" href="#validate_pr"></a>
 </h3>
 <ul>
 <li>test from <code><a href="../reference/validate_model_folder.html">validate_model_folder()</a></code>
@@ -205,11 +201,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://www.normalesup.org/~hgruson/">Hugo Gruson</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://www.normalesup.org/~hgruson/" class="external-link">Hugo Gruson</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -217,6 +215,8 @@
 
   
 
+
+  
 
   </body>
 </html>
