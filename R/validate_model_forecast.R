@@ -34,7 +34,7 @@ validate_model_forecast <- function(forecast_file, forecast_schema) {
           "^\\d{4}\\-\\d{2}\\-\\d{2}-[a-zA-Z0-9_+]+-[a-zA-Z0-9_+]+\\.csv$",
           fs::path_file(forecast_file)
         ),
-        "Filename", "formed of a date and a model name"
+        "Filename", "formed of a date and a model name, separated by an hyphen"
       ))
 
       forecast <- readr::read_csv(
