@@ -45,7 +45,7 @@ validate_model_data <- function(data_file, data_schema) {
       validations <- c(validations, fhub_check(
         data_file,
         identical(
-          unique(data$forecast_date),
+          unique(data$origin_date),
           as.Date(
             gsub(
               "^(\\d{4}-\\d{2}-\\d{2})-[a-zA-Z0-9_+]+-[a-zA-Z0-9_+]+\\.csv$",
