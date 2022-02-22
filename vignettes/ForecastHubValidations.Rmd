@@ -1,0 +1,73 @@
+---
+title: "Getting started with ForecastHubValidations"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting started with ForecastHubValidations}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(ForecastHubValidations)
+```
+
+ForecastHubValidations is an R package designed to validate submissions to a forecast hub.
+
+Most of the time, validations will be set up to run automatically via [GitHub Actions](https://github.com/features/actions) when a pull request is opened in a hub GitHub repository.
+
+However, you might want to validate your submission locally, either to check that everything is okay in advance, or to investigate the reason of a failure in the automated checks.
+
+## Interpreting the output of ForecastHubValidations
+
+By default, validation functions from ForecastHubValidations (functions starting with `validate_...()`) will print all the checks performed and passing checks will be shown on lines starting with `✓` while failing check lines will start with `x`.
+
+## Checking all your changes
+
+To reproduce the checks done automatically when you open a pull request, the simplest option is to place yourself at the root of the hub GitHub repository, and call `validate_repository()` or `validate_pr()`. 
+
+```{r}
+validate_repository(
+ system.file("testdata", package = "ForecastHubValidations")
+)
+```
+
+## Checking only your team folder
+
+You can check a specific team folder instead of checking the whole repository by running `validate_model_folder()`. In this case, you will also need to specify the path to the schema files used for the validation. Usually, these files will be at the root of the folder containing each team folder. In the case of the European Covid-19 Forecast Hub, this folder is named `data-processed`.
+
+```{r}
+validate_model_folder(
+  system.file("testdata", "example-model", package = "ForecastHubValidations"),
+  forecast_schema = system.file("testdata", "schema-forecast.yml", package = "ForecastHubValidations"),
+  metadata_schema = system.file("testdata", "schema-metadata.yml", package = "ForecastHubValidations")
+)
+```
+
+## Checking only your metadata file
+
+Alternatively, you can check only the metadata file with `validate_model_metadata()`. You will have to specify the path to the metadata schema file
+
+```{r}
+validate_model_metadata(
+  system.file("testdata", "example-model", "metadata-example-model.txt", package = "ForecastHubValidations"),
+  metadata_schema = system.file("testdata", "schema-metadata.yml", package = "ForecastHubValidations")
+)
+```
+
+## Checking only your projection file
+
+Alternatively, you can check only the projection file with `validate_model_forecast()`. You will have to specify the path to the metadata schema file
+
+```{r}
+validate_model_forecast(
+  system.file("testdata", "example-model", "2021-07-26-example-model.csv", package = "ForecastHubValidations"),
+  forecast_schema = system.file("testdata", "schema-forecast.yml", package = "ForecastHubValidations")
+)
+```
