@@ -13,7 +13,7 @@ test_that("Output class", {
 
   expect_true(all(map_lgl(res, rlang::is_condition)))
 
-  expect_true(all(purrr::map_int(res, length) == 2L))
+  expect_true(all(purrr::map_int(res, length) == 3L))
 
 })
 
