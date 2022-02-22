@@ -4,4 +4,13 @@ template:
 
 authors:
   Hugo Gruson:
-    href: https://www.normalesup.org/~hgruson/
+    href: https://hugogruson.fr/
+
+
+reference:
+  - title: Validation functions
+    contents:
+    - starts_with("validate_")
+  - title: Utilities
+    contents:
+    - -starts_with("validate_")
