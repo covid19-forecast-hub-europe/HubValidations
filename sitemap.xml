@@ -10,7 +10,7 @@
     <loc>/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/articles/ForecastHubValidations.html</loc>
+    <loc>/articles/HubValidations.html</loc>
   </url>
   <url>
     <loc>/articles/index.html</loc>
@@ -25,6 +25,9 @@
     <loc>/index.html</loc>
   </url>
   <url>
+    <loc>/reference/HubValidations-package.html</loc>
+  </url>
+  <url>
     <loc>/reference/check_for_errors.html</loc>
   </url>
   <url>
@@ -34,10 +37,10 @@
     <loc>/reference/print.fhub_validations.html</loc>
   </url>
   <url>
-    <loc>/reference/validate_model_folder.html</loc>
+    <loc>/reference/validate_model_data.html</loc>
   </url>
   <url>
-    <loc>/reference/validate_model_forecast.html</loc>
+    <loc>/reference/validate_model_folder.html</loc>
   </url>
   <url>
     <loc>/reference/validate_model_metadata.html</loc>
