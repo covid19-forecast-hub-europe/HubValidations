@@ -3,11 +3,11 @@ test_that("Output class", {
   res <- expect_silent({
     validate_model_folder(
      system.file("testdata", "example-model",
-                 package = "ForecastHubValidations"),
+                 package = "HubValidations"),
      system.file("testdata", "schema-forecast.yml",
-                 package = "ForecastHubValidations"),
+                 package = "HubValidations"),
      system.file("testdata", "schema-metadata.yml",
-                 package = "ForecastHubValidations")
+                 package = "HubValidations")
     )
   })
 
