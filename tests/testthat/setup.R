@@ -3,7 +3,7 @@ fs::dir_create(tdir)
 withr::defer(fs::dir_delete(tdir), teardown_env())
 
 fs::dir_copy(
-  fs::path_package("ForecastHubValidations", "testdata"),
+  fs::path_package("HubValidations", "testdata"),
   tdir
 )
 withr::with_dir(tdir, {
@@ -18,11 +18,11 @@ fs::dir_create(tdir2)
 withr::defer(fs::dir_delete(tdir2), teardown_env())
 
 fs::dir_copy(
-  fs::path_package("ForecastHubValidations", "testdata"),
+  fs::path_package("HubValidations", "testdata"),
   tdir2
 )
 
-file_to_break <- fs::path(tdir2, "testdata", "schema-forecast.yml")
+file_to_break <- fs::path(tdir2, "testdata", "schema-data.yml")
 
 d <- readLines(file_to_break)
 d[1] <- paste0(d[1], ":")

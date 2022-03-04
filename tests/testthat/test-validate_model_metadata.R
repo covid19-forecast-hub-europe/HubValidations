@@ -3,9 +3,9 @@ test_that("Output class", {
   res <- expect_silent({
     validate_model_metadata(
       system.file("testdata", "example-model", "metadata-example-model.txt",
-                  package = "ForecastHubValidations"),
+                  package = "HubValidations"),
       system.file("testdata", "schema-metadata.yml",
-                  package = "ForecastHubValidations")
+                  package = "HubValidations")
     )
   })
 
@@ -21,9 +21,9 @@ test_that("Successful validation", {
 
   res <- validate_model_metadata(
     system.file("testdata", "example-model", "metadata-example-model.txt",
-              package = "ForecastHubValidations"),
+              package = "HubValidations"),
     system.file("testdata", "schema-metadata.yml",
-              package = "ForecastHubValidations")
+              package = "HubValidations")
   )
 
   expect_true(all(map_lgl(res, rlang::is_message)))
@@ -55,9 +55,9 @@ test_that("Number of validations", {
 
   res <- validate_model_metadata(
     system.file("testdata", "example-model", "metadata-example-model.txt",
-                package = "ForecastHubValidations"),
+                package = "HubValidations"),
     system.file("testdata", "schema-metadata.yml",
-                package = "ForecastHubValidations")
+                package = "HubValidations")
   )
 
   expect_length(res, 4L)

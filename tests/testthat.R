@@ -1,4 +1,4 @@
 library(testthat)
-library(ForecastHubValidations)
+library(HubValidations)
 
-test_check("ForecastHubValidations")
+test_check("HubValidations")

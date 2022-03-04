@@ -8,7 +8,8 @@ test_that("Output class", {
                  package = "ForecastHubValidations"),
      system.file("testdata", "schema-metadata.yml",
                  package = "ForecastHubValidations")
-  )})
+    )
+  })
 
   expect_s3_class(res, c("fhub_validations", "list"))
 
@@ -22,11 +23,11 @@ test_that("Successful validation", {
 
   res <- validate_model_folder(
     system.file("testdata", "example-model",
-                package = "ForecastHubValidations"),
-    system.file("testdata", "schema-forecast.yml",
-                package = "ForecastHubValidations"),
+                package = "HubValidations"),
+    system.file("testdata", "schema-data.yml",
+                package = "HubValidations"),
     system.file("testdata", "schema-metadata.yml",
-                package = "ForecastHubValidations")
+                package = "HubValidations")
   )
 
   expect_true(all(map_lgl(res, rlang::is_message)))
@@ -43,7 +44,7 @@ test_that("Failed validation", {
     res <- expect_silent({
       validate_model_folder(
         fs::path("testdata", "example-model"),
-        fs::path("testdata", "schema-forecast.yml"),
+        fs::path("testdata", "schema-data.yml"),
         fs::path("testdata", "schema-metadata.yml")
       )
     })
@@ -59,11 +60,11 @@ test_that("Number of validations", {
 
   res <- validate_model_folder(
     system.file("testdata", "example-model",
-                package = "ForecastHubValidations"),
-    system.file("testdata", "schema-forecast.yml",
-                package = "ForecastHubValidations"),
+                package = "HubValidations"),
+    system.file("testdata", "schema-data.yml",
+                package = "HubValidations"),
     system.file("testdata", "schema-metadata.yml",
-                package = "ForecastHubValidations")
+                package = "HubValidations")
   )
 
   expect_length(res, 14L)

@@ -1,7 +1,7 @@
-#' Validate model forecast file
+#' Validate model data file
 #'
-#' @param forecast_file Path to the forecast `.csv` file
-#' @param forecast_schema Path to the `.yml` schema file
+#' @param data_file Path to the `.csv` file
+#' @param data_schema Path to the `.yml` schema file
 #'
 #' @return An object of class `fhub_validations`.
 #'
@@ -12,7 +12,7 @@
 #' @export
 #'
 #' @examples
-#' validate_model_forecast(
+#' validate_model_data(
 #'   system.file(
 #'     "testdata", "example-model", "2021-07-26-example-model.csv",
 #'     package = "ForecastHubValidations"
@@ -22,52 +22,52 @@
 #'     package = "ForecastHubValidations"
 #'   )
 #' )
-validate_model_forecast <- function(forecast_file, forecast_schema) {
+validate_model_data <- function(data_file, data_schema) {
 
   validations <- list()
 
   tryCatch(
     {
       validations <- c(validations, fhub_check(
-        forecast_file,
+        data_file,
         grepl(
           "^\\d{4}\\-\\d{2}\\-\\d{2}-[a-zA-Z0-9_+]+-[a-zA-Z0-9_+]+\\.csv$",
-          fs::path_file(forecast_file)
+          fs::path_file(data_file)
         ),
         "Filename", "formed of a date and a model name, separated by an hyphen"
       ))
 
-      forecast <- readr::read_csv(
-        forecast_file,
+      data <- readr::read_csv(
+        data_file,
         col_types = readr::cols("quantile" = readr::col_double())
       )
 
       validations <- c(validations, fhub_check(
-        forecast_file,
+        data_file,
         identical(
-          unique(forecast$forecast_date),
+          unique(data$forecast_date),
           as.Date(
             gsub(
               "^(\\d{4}-\\d{2}-\\d{2})-[a-zA-Z0-9_+]+-[a-zA-Z0-9_+]+\\.csv$",
-              "\\1", fs::path_file(forecast_file)
+              "\\1", fs::path_file(data_file)
             )
           )
         ),
         "`forecast_date` column", "identical to the date in filename"
       ))
 
-      forecast_json <- toJSON(forecast, dataframe = "columns", na = "null")
+      data_json <- toJSON(data, dataframe = "columns", na = "null")
 
-      if (!file.exists(forecast_schema)) {
-        stop("Data schema file (`", forecast_schema, "`) does not exist",
+      if (!file.exists(data_schema)) {
+        stop("Data schema file (`", data_schema, "`) does not exist",
              call. = FALSE)
       }
       # For some reason, jsonvalidate doesn't like it when we don't unbox
-      schema_json <- toJSON(read_yaml(forecast_schema), auto_unbox = TRUE)
+      schema_json <- toJSON(read_yaml(data_schema), auto_unbox = TRUE)
 
       # Default engine (imjv) doesn't support schema version above 4 so we
       # switch to ajv that supports all versions
-      valid <- json_validate(forecast_json, schema_json, engine = "ajv",
+      valid <- json_validate(data_json, schema_json, engine = "ajv",
                              verbose = TRUE, greedy = TRUE)
 
       if (!valid) {
@@ -79,9 +79,9 @@ validate_model_forecast <- function(forecast_file, forecast_schema) {
       }
 
       validations <- c(validations, fhub_check(
-        forecast_file,
+        data_file,
         valid,
-        "Forecast data", "formed of the expected columns with correct type",
+        "Data", "formed of the expected columns with correct type",
         paste(pb, collapse = "\n ")
       ))
     },
@@ -92,7 +92,7 @@ validate_model_forecast <- function(forecast_file, forecast_schema) {
       # this "unrecoverable" error.
       e <- error_cnd(
         class = "unrecoverable_error",
-        where = forecast_file,
+        where = data_file,
         message = conditionMessage(e)
       )
       validations <<- c(validations, list(e))

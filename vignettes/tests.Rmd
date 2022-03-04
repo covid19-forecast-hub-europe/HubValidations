@@ -2,7 +2,7 @@
 title: "Package design"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{"Package design"}
+  %\VignetteIndexEntry{Package design}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -37,7 +37,7 @@ validate the forecast format, not the forecast itself.
 
 ## Proposed interface
 
-- `validate_model_forecast(file = )`: validate a single `.csv` forecast file.
+- `validate_model_data(file = )`: validate a single `.csv` forecast file.
 - `validate_model_metadata(file = )`: validate a single `.yml` metadata file.
 - `validate_model_folder(path = )`: validate all the `.csv` forecast files and the `.yml` metadata file in a given folder.
 - `validate_repository(path = )`: validate all model folders in a given folder / repository
@@ -45,11 +45,11 @@ validate the forecast format, not the forecast itself.
 
 ## Tests
 
-### `validate_model_forecast()`
+### `validate_model_data()`
 
 - test that file name follow the required format
 - test that the column `forecast_date` matches the file name
-- test that forecasts have no negative values
+- test that projected values are positive
 - test that all required columns are present (in the expect order)
 - test that all columns have the expected type
 - test that quantiles match quantiles in the config file
@@ -70,7 +70,7 @@ validate the forecast format, not the forecast itself.
 
 ### `validate_model_folder()`
 
-- tests from `validate_model_forecast()`
+- tests from `validate_model_data()`
 - tests from `validate_model_metadata()`
 - test that the `.csv` forecast files and `.yml` model metadata file start with the name of the folder
 

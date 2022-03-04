@@ -2,27 +2,27 @@
 % Please edit documentation in R/validate_model_folder.R
 \name{validate_model_folder}
 \alias{validate_model_folder}
-\title{Validate forecasts and metadata for a given model/folder}
+\title{Validate data and metadata for a given model/folder}
 \usage{
-validate_model_folder(path, forecast_schema, metadata_schema)
+validate_model_folder(path, data_schema, metadata_schema)
 }
 \arguments{
 \item{path}{Path to the model/folder to validate}
 
-\item{forecast_schema}{Path to the \code{.yml} schema file}
+\item{data_schema}{Path to the \code{.yml} schema file}
 
 \item{metadata_schema}{Path to the \code{.yml} schema file}
 }
 \description{
-Validate forecasts and metadata for a given model/folder
+Validate data and metadata for a given model/folder
 }
 \examples{
 validate_model_folder(
   system.file("testdata", "example-model",
-              package = "ForecastHubValidations"),
-  system.file("testdata", "schema-forecast.yml",
-              package = "ForecastHubValidations"),
+              package = "HubValidations"),
+  system.file("testdata", "schema-data.yml",
+              package = "HubValidations"),
   system.file("testdata", "schema-metadata.yml",
-              package = "ForecastHubValidations")
+              package = "HubValidations")
 )
 }

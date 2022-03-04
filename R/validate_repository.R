@@ -1,7 +1,7 @@
 #' Validate a complete repository containing multiple forecast folders
 #'
 #' @param data_folder The path to the folder containing forecasts
-#' @inheritParams validate_model_forecast
+#' @inheritParams validate_model_data
 #' @inheritParams validate_model_metadata
 #'
 #' @return An object of class `fhub_validations`.
@@ -18,7 +18,7 @@
 #'
 validate_repository <- function(
   data_folder = ".",
-  forecast_schema = file.path(data_folder, "schema-forecast.yml"),
+  data_schema = file.path(data_folder, "schema-data.yml"),
   metadata_schema = file.path(data_folder, "schema-metadata.yml")
 ) {
 
@@ -35,7 +35,7 @@ validate_repository <- function(
       validations <- c(validations, unlist(lapply(
         forecast_folders,
         validate_model_folder,
-        forecast_schema = forecast_schema,
+        data_schema = data_schema,
         metadata_schema = metadata_schema
       ), recursive = FALSE))
 

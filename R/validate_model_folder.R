@@ -1,7 +1,7 @@
-#' Validate forecasts and metadata for a given model/folder
+#' Validate data and metadata for a given model/folder
 #'
 #' @param path Path to the model/folder to validate
-#' @inheritParams validate_model_forecast
+#' @inheritParams validate_model_data
 #' @inheritParams validate_model_metadata
 #'
 #' @export
@@ -9,13 +9,13 @@
 #' @examples
 #' validate_model_folder(
 #'   system.file("testdata", "example-model",
-#'               package = "ForecastHubValidations"),
-#'   system.file("testdata", "schema-forecast.yml",
-#'               package = "ForecastHubValidations"),
+#'               package = "HubValidations"),
+#'   system.file("testdata", "schema-data.yml",
+#'               package = "HubValidations"),
 #'   system.file("testdata", "schema-metadata.yml",
-#'               package = "ForecastHubValidations")
+#'               package = "HubValidations")
 #' )
-validate_model_folder <- function(path, forecast_schema, metadata_schema) {
+validate_model_folder <- function(path, data_schema, metadata_schema) {
 
   validations_folder <- list()
 
@@ -26,7 +26,7 @@ validate_model_folder <- function(path, forecast_schema, metadata_schema) {
         type = "file"
       )
 
-      forecast_files <- all_files[fs::path_ext(all_files) == "csv"]
+      data_files <- all_files[fs::path_ext(all_files) == "csv"]
 
       metadata_file <- all_files[grepl("^metadata", basename(all_files))]
 
@@ -50,7 +50,7 @@ validate_model_folder <- function(path, forecast_schema, metadata_schema) {
       validations_folder <- c(
         validations_folder,
         unlist(
-          lapply(forecast_files, function(file) {
+          lapply(data_files, function(file) {
            fhub_check(
              fs::path_file(file),
              identical(
@@ -58,7 +58,7 @@ validate_model_folder <- function(path, forecast_schema, metadata_schema) {
                gsub("^.*-([a-zA-Z0-9_+]+-[a-zA-Z0-9_+]+).*", "\\1",
                     fs::path_file(file))
              ),
-             "Folder name", "identical to model name in forecast file"
+             "Folder name", "identical to model name in data file"
            )
           }),
           recursive = FALSE
@@ -84,17 +84,17 @@ validate_model_folder <- function(path, forecast_schema, metadata_schema) {
     metadata_schema
   )
 
-  validations_forecasts <- lapply(
-    forecast_files,
-    validate_model_forecast,
-    forecast_schema
+  validations_data <- lapply(
+    data_files,
+    validate_model_data,
+    data_schema
   )
-  validations_forecasts <- unlist(validations_forecasts, recursive = FALSE)
+  validations_data <- unlist(validations_data, recursive = FALSE)
 
   validations <- c(
     validations_folder,
     validations_metadata,
-    validations_forecasts
+    validations_data
   )
 
   class(validations) <- c("fhub_validations", "list")

@@ -2,7 +2,7 @@ test_that("Output class", {
 
   res <- expect_silent({
     validate_repository(
-      system.file("testdata", package = "ForecastHubValidations")
+      system.file("testdata", package = "HubValidations")
     )
   })
 
@@ -17,7 +17,7 @@ test_that("Output class", {
 test_that("Successful validation", {
 
   res <- validate_repository(
-    system.file("testdata", package = "ForecastHubValidations")
+    system.file("testdata", package = "HubValidations")
   )
 
   expect_true(all(map_lgl(res, rlang::is_message)))
@@ -47,7 +47,7 @@ test_that("Failed validation", {
 test_that("Number of validations", {
 
   res <- validate_repository(
-    system.file("testdata", package = "ForecastHubValidations")
+    system.file("testdata", package = "HubValidations")
   )
 
   expect_length(res, 29L)

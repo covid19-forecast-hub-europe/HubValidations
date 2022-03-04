@@ -1,5 +1,5 @@
-Package: ForecastHubValidations
-Title: Validate Data Submitted to a Forecast Hub
+Package: HubValidations
+Title: Validate Data Submitted to a Modeling Hub
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Hugo",
@@ -8,7 +8,7 @@ Authors@R:
            email = "hugo.gruson+R@normalesup.org",
            comment = c(ORCID = "0000-0002-4094-1476"))
 Description: This package aims at providing a simple interface to run 
-  validations on data and metadata submitted to a forecast hub. Validation tests
+  validations on data and metadata submitted to a modeling hub. Validation tests
   can be run at different levels (single file, single folder, whole repository)
   and locally as well as part of a continuous integration workflow.
 License: MIT + file LICENSE
@@ -38,5 +38,5 @@ Suggests:
 VignetteBuilder: knitr
 Remotes: 
     r-lib/rlang
-URL: https://github.com/epiforecasts/ForecastHubValidations
-BugReports: https://github.com/epiforecasts/ForecastHubValidations/issues
+URL: https://github.com/epiforecasts/HubValidations
+BugReports: https://github.com/epiforecasts/HubValidations/issues

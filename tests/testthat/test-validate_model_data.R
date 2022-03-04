@@ -1,11 +1,11 @@
 test_that("Output class", {
 
   res <- expect_silent({
-    validate_model_forecast(
+    validate_model_data(
       system.file("testdata", "example-model", "2021-07-26-example-model.csv",
-                  package = "ForecastHubValidations"),
-      system.file("testdata", "schema-forecast.yml",
-                  package = "ForecastHubValidations")
+                  package = "HubValidations"),
+      system.file("testdata", "schema-data.yml",
+                  package = "HubValidations")
     )})
 
   expect_s3_class(res, c("fhub_validations", "list"))
@@ -18,11 +18,11 @@ test_that("Output class", {
 
 test_that("Successful validation", {
 
-  res <- validate_model_forecast(
+  res <- validate_model_data(
     system.file("testdata", "example-model", "2021-07-26-example-model.csv",
-                package = "ForecastHubValidations"),
-    system.file("testdata", "schema-forecast.yml",
-                package = "ForecastHubValidations")
+                package = "HubValidations"),
+    system.file("testdata", "schema-data.yml",
+                package = "HubValidations")
   )
 
   expect_true(all(map_lgl(res, rlang::is_message)))
@@ -37,9 +37,9 @@ test_that("Failed validation", {
 
   withr::with_dir(tdir, {
     res <- expect_silent({
-      validate_model_forecast(
+      validate_model_data(
         fs::path("testdata", "example-model", "2021-07-18-example-model.csv"),
-        fs::path("testdata", "schema-forecast.yml")
+        fs::path("testdata", "schema-data.yml")
       )
     })
   })
@@ -56,9 +56,9 @@ test_that("Erroring validation", {
 
   withr::with_dir(tdir2, {
     res <- expect_silent({
-      validate_model_forecast(
+      validate_model_data(
         fs::path("testdata", "example-model", "2021-07-19-example-model.csv"),
-        fs::path("testdata", "schema-forecast.yml")
+        fs::path("testdata", "schema-data.yml")
       )
     })
   })
@@ -71,11 +71,11 @@ test_that("Erroring validation", {
 
 test_that("Number of validations", {
 
-  res <- validate_model_forecast(
+  res <- validate_model_data(
     system.file("testdata", "example-model", "2021-07-26-example-model.csv",
-                package = "ForecastHubValidations"),
-    system.file("testdata", "schema-forecast.yml",
-                package = "ForecastHubValidations")
+                package = "HubValidations"),
+    system.file("testdata", "schema-data.yml",
+                package = "HubValidations")
   )
 
   expect_length(res, 3L)

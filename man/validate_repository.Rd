@@ -6,14 +6,14 @@
 \usage{
 validate_repository(
   data_folder = ".",
-  forecast_schema = file.path(data_folder, "schema-forecast.yml"),
+  data_schema = file.path(data_folder, "schema-data.yml"),
   metadata_schema = file.path(data_folder, "schema-metadata.yml")
 )
 }
 \arguments{
 \item{data_folder}{The path to the folder containing forecasts}
 
-\item{forecast_schema}{Path to the \code{.yml} schema file}
+\item{data_schema}{Path to the \code{.yml} schema file}
 
 \item{metadata_schema}{Path to the \code{.yml} schema file}
 }
