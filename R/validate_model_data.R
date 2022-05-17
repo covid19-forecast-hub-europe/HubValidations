@@ -38,8 +38,7 @@ validate_model_data <- function(data_file, data_schema) {
       ))
 
       data <- readr::read_csv(
-        data_file,
-        col_types = readr::cols("quantile" = readr::col_double())
+        data_file
       )
 
       validations <- c(validations, fhub_check(
