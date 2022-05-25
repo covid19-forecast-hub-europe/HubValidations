@@ -3,6 +3,6 @@ pkgdown: 2.0.3
 pkgdown_sha: ~
 articles:
   HubValidations: HubValidations.html
-  tests: tests.html
-last_built: 2022-05-25T15:18Z
+  design: design.html
+last_built: 2022-05-25T15:33Z
 
