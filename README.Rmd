@@ -33,16 +33,16 @@ You can the latest version of this package from GitHub with:
 
 ```{r, eval = FALSE}
 # install.packages("remotes")
-remotes::install_github("epiforecasts/ForecastHubValidations")
+remotes::install_github("epiforecasts/HubValidations")
 ```
 
 ## Usage
 
 ```{r example}
-library(ForecastHubValidations)
+library(HubValidations)
 
 validate_repository(
- system.file("testdata", package = "ForecastHubValidations")
+ system.file("testdata", package = "HubValidations")
 )
 ```
 
@@ -51,4 +51,4 @@ validate_repository(
 This project is part of a larger effort to provide tools to create and run
 a forecast hub. Please also refer to our other packages:
 
-- [ForecastHubSubmissionApp](https://github.com/epiforecasts/ForecastHubSubmissionApp)
+- [HubSubmissionApp](https://github.com/epiforecasts/ForecastHubSubmissionApp)
