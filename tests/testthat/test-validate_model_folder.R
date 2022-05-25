@@ -1,15 +1,13 @@
 test_that("Output class", {
 
-  res <- expect_silent({
-    validate_model_folder(
-     system.file("testdata", "example-model",
-                 package = "HubValidations"),
-     system.file("testdata", "schema-forecast.yml",
-                 package = "HubValidations"),
-     system.file("testdata", "schema-metadata.yml",
-                 package = "HubValidations")
-    )
-  })
+  res <- validate_model_folder(
+    system.file("testdata", "example-model",
+                package = "HubValidations"),
+    system.file("testdata", "schema-data.yml",
+                package = "HubValidations"),
+    system.file("testdata", "schema-metadata.yml",
+                package = "HubValidations")
+  )
 
   expect_s3_class(res, c("fhub_validations", "list"))
 
