@@ -38,7 +38,8 @@ validate_model_data <- function(data_file, data_schema) {
       ))
 
       data <- readr::read_csv(
-        data_file
+        data_file,
+        show_col_types = FALSE
       )
 
       validations <- c(validations, fhub_check(
