@@ -23,7 +23,8 @@ validate_model_folder <- function(path, data_schema, metadata_schema) {
     {
       all_files <- fs::dir_ls(
         path = path,
-        type = "file"
+        type = "file",
+        recurse = 1
       )
 
       data_files <- all_files[fs::path_ext(all_files) == "csv"]
