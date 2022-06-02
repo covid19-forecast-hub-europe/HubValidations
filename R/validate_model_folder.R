@@ -55,7 +55,7 @@ validate_model_folder <- function(path, data_schema, metadata_schema) {
              fs::path_file(file),
              identical(
                fs::path_file(path),
-               gsub("^.*-([a-zA-Z0-9_+]+-[a-zA-Z0-9_+]+).*", "\\1",
+               gsub("^\\d{4}\\-\\d{2}\\-\\d{2}-([a-zA-Z0-9_]+-[a-zA-Z0-9_]+)(-[[:alpha:]]+)?\\.csv$", "\\1",
                     fs::path_file(file))
              ),
              "Folder name", "identical to model name in data file"

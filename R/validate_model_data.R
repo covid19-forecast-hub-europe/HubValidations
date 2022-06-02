@@ -31,7 +31,7 @@ validate_model_data <- function(data_file, data_schema) {
       validations <- c(validations, fhub_check(
         data_file,
         grepl(
-          "^\\d{4}\\-\\d{2}\\-\\d{2}-[a-zA-Z0-9_+]+-[a-zA-Z0-9_+]+(-[[:alpha:]])?\\.csv$",
+          "^\\d{4}\\-\\d{2}\\-\\d{2}-[a-zA-Z0-9_]+-[a-zA-Z0-9_]+(-[[:alpha:]]+)?\\.csv$",
           fs::path_file(data_file)
         ),
         "Filename", "formed of a date, a model name, and optionally a target separated by an hyphen"
