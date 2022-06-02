@@ -30,8 +30,8 @@ validate_model_metadata <- function(metadata_file, metadata_schema) {
         validations,
         fhub_check(
           metadata_file,
-          fs::path_ext(metadata_file) == "txt",
-          "Metadata file", "using the `.txt` extension"
+          fs::path_ext(metadata_file) == "yml",
+          "Metadata file", "using the `.yml` extension"
         ),
         fhub_check(
           metadata_file,

@@ -2,7 +2,7 @@ test_that("Output class", {
 
   res <- expect_silent({
     validate_model_metadata(
-      system.file("testdata", "example-model", "metadata-example-model.txt",
+      system.file("testdata", "example-model", "metadata-example-model.yml",
                   package = "HubValidations"),
       system.file("testdata", "schema-metadata.yml",
                   package = "HubValidations")
@@ -20,7 +20,7 @@ test_that("Output class", {
 test_that("Successful validation", {
 
   res <- validate_model_metadata(
-    system.file("testdata", "example-model", "metadata-example-model.txt",
+    system.file("testdata", "example-model", "metadata-example-model.yml",
               package = "HubValidations"),
     system.file("testdata", "schema-metadata.yml",
               package = "HubValidations")
@@ -39,7 +39,7 @@ test_that("Failed validation", {
   withr::with_dir(tdir, {
     res <- expect_silent({
       validate_model_metadata(
-        fs::path("testdata", "example-model2", "metadata-example-model-fail.txt"),
+        fs::path("testdata", "example-model2", "metadata-example-model-fail.yml"),
         fs::path("testdata", "schema-metadata.yml")
       )
     })
@@ -54,7 +54,7 @@ test_that("Failed validation", {
 test_that("Number of validations", {
 
   res <- validate_model_metadata(
-    system.file("testdata", "example-model", "metadata-example-model.txt",
+    system.file("testdata", "example-model", "metadata-example-model.yml",
                 package = "HubValidations"),
     system.file("testdata", "schema-metadata.yml",
                 package = "HubValidations")
