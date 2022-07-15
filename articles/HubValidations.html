@@ -90,7 +90,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/epiforecasts/HubValidations" class="external-link">HubValidations</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/epiforecasts/HubValidations" class="external-link">HubValidations</a></span><span class="op">)</span></span></code></pre></div>
 <p>HubValidations is an R package designed to validate submissions to a forecast hub.</p>
 <p>Most of the time, validations will be set up to run automatically via <a href="https://github.com/features/actions" class="external-link">GitHub Actions</a> when a pull request is opened in a hub GitHub repository.</p>
 <p>However, you might want to validate your submission locally, either to check that everything is okay in advance, or to investigate the reason of a failure in the automated checks.</p>
@@ -104,139 +104,138 @@
 </h2>
 <p>To reproduce the checks done automatically when you open a pull request, the simplest option is to place yourself at the root of the hub GitHub repository, and call <code><a href="../reference/validate_repository.html">validate_repository()</a></code> or <code><a href="../reference/validate_pr.html">validate_pr()</a></code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/validate_repository.html">validate_repository</a></span><span class="op">(</span>
- <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, package <span class="op">=</span> <span class="st">"HubValidations"</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> example-model: There is only one metadata file </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> example-model: Folder name is the same as the model name in metadata filename </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-19-example-model.csv: Folder name is identical to model name in data file </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model.csv: Folder name is identical to model name in data file </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model.txt: Metadata file is using the `.txt` extension </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model.txt: Metadata filename is starting with 'metadata-' </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model.txt: Metadata filename is the same as `model_abbr` </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model.txt: Metadata file is consistent with schema specifications </span>
-<span class="co">#&gt;  </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-19-example-model.csv: Filename is formed of a date and a model name, separated by an hyphen </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-19-example-model.csv: `forecast_date` column is identical to the date in filename </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-19-example-model.csv: Data is formed of the expected columns with correct type </span>
-<span class="co">#&gt;  </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model.csv: Filename is formed of a date and a model name, separated by an hyphen </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model.csv: `forecast_date` column is identical to the date in filename </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model.csv: Data is formed of the expected columns with correct type </span>
-<span class="co">#&gt;  </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> example-model2: There is only one metadata file </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> example-model2: Folder name is the same as the model name in metadata filename </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-19-example-model2.csv: Folder name is identical to model name in data file </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model2.csv: Folder name is identical to model name in data file </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model2.txt: Metadata file is using the `.txt` extension </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model2.txt: Metadata filename is starting with 'metadata-' </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model2.txt: Metadata filename is the same as `model_abbr` </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model2.txt: Metadata file is consistent with schema specifications </span>
-<span class="co">#&gt;  </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-19-example-model2.csv: Filename is formed of a date and a model name, separated by an hyphen </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-19-example-model2.csv: `forecast_date` column is identical to the date in filename </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-19-example-model2.csv: Data is formed of the expected columns with correct type </span>
-<span class="co">#&gt;  </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model2.csv: Filename is formed of a date and a model name, separated by an hyphen </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model2.csv: `forecast_date` column is identical to the date in filename </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model2.csv: Data is formed of the expected columns with correct type </span>
-<span class="co">#&gt;  </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model.txt: There is only one primary model for a given team</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/validate_repository.html">validate_repository</a></span><span class="op">(</span></span>
+<span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, package <span class="op">=</span> <span class="st">"HubValidations"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> example-model: There is only one metadata file </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> example-model: Folder name is the same as the model name in metadata filename </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-19-example-model.csv: Folder name is identical to model name in data file </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model.csv: Folder name is identical to model name in data file </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model.yml: Metadata file is using the `.yml` extension </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model.yml: Metadata filename is starting with 'metadata-' </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model.yml: Metadata filename is the same as `model_abbr` </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model.yml: Metadata file is consistent with schema specifications </span></span>
+<span><span class="co">#&gt;  </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-19-example-model.csv: Filename is formed of a date and a model name, separated by an hyphen </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-19-example-model.csv: `forecast_date` column is identical to the date in filename </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-19-example-model.csv: Data is formed of the expected columns with correct type </span></span>
+<span><span class="co">#&gt;  </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model.csv: Filename is formed of a date and a model name, separated by an hyphen </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model.csv: `forecast_date` column is identical to the date in filename </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model.csv: Data is formed of the expected columns with correct type </span></span>
+<span><span class="co">#&gt;  </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> example-model2: There is only one metadata file </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> example-model2: Folder name is the same as the model name in metadata filename </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-19-example-model2.csv: Folder name is identical to model name in data file </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model2.csv: Folder name is identical to model name in data file </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model2.yml: Metadata file is using the `.yml` extension </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model2.yml: Metadata filename is starting with 'metadata-' </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model2.yml: Metadata filename is the same as `model_abbr` </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model2.yml: Metadata file is consistent with schema specifications </span></span>
+<span><span class="co">#&gt;  </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-19-example-model2.csv: Filename is formed of a date and a model name, separated by an hyphen </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-19-example-model2.csv: `forecast_date` column is identical to the date in filename </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-19-example-model2.csv: Data is formed of the expected columns with correct type </span></span>
+<span><span class="co">#&gt;  </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model2.csv: Filename is formed of a date and a model name, separated by an hyphen </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model2.csv: `forecast_date` column is identical to the date in filename </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model2.csv: Data is formed of the expected columns with correct type </span></span>
+<span><span class="co">#&gt;  </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model.yml: There is only one primary model for a given team</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="checking-only-your-team-folder">Checking only your team folder<a class="anchor" aria-label="anchor" href="#checking-only-your-team-folder"></a>
 </h2>
 <p>You can check a specific team folder instead of checking the whole repository by running <code><a href="../reference/validate_model_folder.html">validate_model_folder()</a></code>. In this case, you will also need to specify the path to the schema files used for the validation. Usually, these files will be at the root of the folder containing each team folder. In the case of the European Covid-19 Forecast Hub, this folder is named <code>data-processed</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/validate_model_folder.html">validate_model_folder</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, <span class="st">"example-model"</span>, package <span class="op">=</span> <span class="st">"HubValidations"</span><span class="op">)</span>,
-  data_schema <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, <span class="st">"schema-data.yml"</span>, package <span class="op">=</span> <span class="st">"HubValidations"</span><span class="op">)</span>,
-  metadata_schema <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, <span class="st">"schema-metadata.yml"</span>, package <span class="op">=</span> <span class="st">"HubValidations"</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> example-model: There is only one metadata file </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> example-model: Folder name is the same as the model name in metadata filename </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-19-example-model.csv: Folder name is identical to model name in data file </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model.csv: Folder name is identical to model name in data file </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model.txt: Metadata file is using the `.txt` extension </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model.txt: Metadata filename is starting with 'metadata-' </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model.txt: Metadata filename is the same as `model_abbr` </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model.txt: Metadata file is consistent with schema specifications </span>
-<span class="co">#&gt;  </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-19-example-model.csv: Filename is formed of a date and a model name, separated by an hyphen </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-19-example-model.csv: `forecast_date` column is identical to the date in filename </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-19-example-model.csv: Data is formed of the expected columns with correct type </span>
-<span class="co">#&gt;  </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model.csv: Filename is formed of a date and a model name, separated by an hyphen </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model.csv: `forecast_date` column is identical to the date in filename </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model.csv: Data is formed of the expected columns with correct type </span>
-<span class="co">#&gt; </span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/validate_model_folder.html">validate_model_folder</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, <span class="st">"example-model"</span>, package <span class="op">=</span> <span class="st">"HubValidations"</span><span class="op">)</span>,</span>
+<span>  data_schema <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, <span class="st">"schema-data.yml"</span>, package <span class="op">=</span> <span class="st">"HubValidations"</span><span class="op">)</span>,</span>
+<span>  metadata_schema <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, <span class="st">"schema-metadata.yml"</span>, package <span class="op">=</span> <span class="st">"HubValidations"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> example-model: There is only one metadata file </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> example-model: Folder name is the same as the model name in metadata filename </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-19-example-model.csv: Folder name is identical to model name in data file </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model.csv: Folder name is identical to model name in data file </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model.yml: Metadata file is using the `.yml` extension </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model.yml: Metadata filename is starting with 'metadata-' </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model.yml: Metadata filename is the same as `model_abbr` </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model.yml: Metadata file is consistent with schema specifications </span></span>
+<span><span class="co">#&gt;  </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-19-example-model.csv: Filename is formed of a date and a model name, separated by an hyphen </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-19-example-model.csv: `forecast_date` column is identical to the date in filename </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-19-example-model.csv: Data is formed of the expected columns with correct type </span></span>
+<span><span class="co">#&gt;  </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model.csv: Filename is formed of a date and a model name, separated by an hyphen </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model.csv: `forecast_date` column is identical to the date in filename </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model.csv: Data is formed of the expected columns with correct type </span></span>
+<span><span class="co">#&gt; </span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="checking-only-your-metadata-file">Checking only your metadata file<a class="anchor" aria-label="anchor" href="#checking-only-your-metadata-file"></a>
 </h2>
 <p>Alternatively, you can check only the metadata file with <code><a href="../reference/validate_model_metadata.html">validate_model_metadata()</a></code>. You will have to specify the path to the metadata schema file</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/validate_model_metadata.html">validate_model_metadata</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, <span class="st">"example-model"</span>, <span class="st">"metadata-example-model.txt"</span>, package <span class="op">=</span> <span class="st">"HubValidations"</span><span class="op">)</span>,
-  metadata_schema <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, <span class="st">"schema-metadata.yml"</span>, package <span class="op">=</span> <span class="st">"HubValidations"</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model.txt: Metadata file is using the `.txt` extension </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model.txt: Metadata filename is starting with 'metadata-' </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model.txt: Metadata filename is the same as `model_abbr` </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model.txt: Metadata file is consistent with schema specifications </span>
-<span class="co">#&gt; </span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/validate_model_metadata.html">validate_model_metadata</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, <span class="st">"example-model"</span>, <span class="st">"metadata-example-model.txt"</span>, package <span class="op">=</span> <span class="st">"HubValidations"</span><span class="op">)</span>,</span>
+<span>  metadata_schema <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, <span class="st">"schema-metadata.yml"</span>, package <span class="op">=</span> <span class="st">"HubValidations"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in file(file, "rt", encoding = fileEncoding): file("") only supports</span></span>
+<span><span class="co">#&gt; open = "w+" and open = "w+b": using the former</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> : Metadata file has to be using the `.yml` extension </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> : Metadata filename has to be starting with 'metadata-' </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> : invalid 'pattern' argument</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="checking-only-your-projection-file">Checking only your projection file<a class="anchor" aria-label="anchor" href="#checking-only-your-projection-file"></a>
 </h2>
 <p>Alternatively, you can check only the projection file with <code><a href="../reference/validate_model_data.html">validate_model_data()</a></code>. You will have to specify the path to the metadata schema file</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/validate_model_data.html">validate_model_data</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, <span class="st">"example-model"</span>, <span class="st">"2021-07-26-example-model.csv"</span>, package <span class="op">=</span> <span class="st">"HubValidations"</span><span class="op">)</span>,
-  data_schema <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, <span class="st">"schema-data.yml"</span>, package <span class="op">=</span> <span class="st">"HubValidations"</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model.csv: Filename is formed of a date and a model name, separated by an hyphen </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model.csv: `forecast_date` column is identical to the date in filename </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model.csv: Data is formed of the expected columns with correct type </span>
-<span class="co">#&gt; </span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/validate_model_data.html">validate_model_data</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, <span class="st">"example-model"</span>, <span class="st">"2021-07-26-example-model.csv"</span>, package <span class="op">=</span> <span class="st">"HubValidations"</span><span class="op">)</span>,</span>
+<span>  data_schema <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, <span class="st">"schema-data.yml"</span>, package <span class="op">=</span> <span class="st">"HubValidations"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model.csv: Filename is formed of a date and a model name, separated by an hyphen </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model.csv: `forecast_date` column is identical to the date in filename </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> 2021-07-26-example-model.csv: Data is formed of the expected columns with correct type </span></span>
+<span><span class="co">#&gt; </span></span></code></pre></div>
 </div>
   </div>
 
@@ -257,7 +256,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>
