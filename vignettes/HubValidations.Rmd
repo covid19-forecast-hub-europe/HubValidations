@@ -34,19 +34,20 @@ To reproduce the checks done automatically when you open a pull request, the sim
 
 ```{r}
 validate_repository(
- system.file("testdata", package = "HubValidations")
+  data_folder = system.file("testdata", "data-processed", package = "HubValidations"),
+  metadata_folder = system.file("testdata", "metadata", package = "HubValidations")
 )
 ```
 
-## Checking only your team folder
+## Checking only your model
 
-You can check a specific team folder instead of checking the whole repository by running `validate_model_folder()`. In this case, you will also need to specify the path to the schema files used for the validation. Usually, these files will be at the root of the folder containing each team folder. In the case of the European Covid-19 Forecast Hub, this folder is named `data-processed`.
+You can check a specific model instead of checking the whole repository by running `validate_model()`. In this case, you will also need to specify the path to the schema files used for the validation. Usually, these files will be at the root of the folder containing each team folder. In the case of the European Covid-19 Forecast Hub, this folder is named `data-processed`.
 
 ```{r}
-validate_model_folder(
-  system.file("testdata", "example-model", package = "HubValidations"),
-  data_schema = system.file("testdata", "schema-data.yml", package = "HubValidations"),
-  metadata_schema = system.file("testdata", "schema-metadata.yml", package = "HubValidations")
+validate_model(
+  "example-model",
+  data_folder = system.file("testdata", "data-processed", package = "HubValidations"),
+  metadata_folder = system.file("testdata", "metadata", package = "HubValidations")
 )
 ```
 
@@ -56,8 +57,8 @@ Alternatively, you can check only the metadata file with `validate_model_metadat
 
 ```{r}
 validate_model_metadata(
-  system.file("testdata", "example-model", "metadata-example-model.txt", package = "HubValidations"),
-  metadata_schema = system.file("testdata", "schema-metadata.yml", package = "HubValidations")
+  system.file("testdata", "metadata", "metadata-example-model.yml", package = "HubValidations"),
+  metadata_schema = system.file("testdata", "data-processed", "schema-metadata.yml", package = "HubValidations")
 )
 ```
 
@@ -67,7 +68,7 @@ Alternatively, you can check only the projection file with `validate_model_data(
 
 ```{r}
 validate_model_data(
-  system.file("testdata", "example-model", "2021-07-26-example-model.csv", package = "HubValidations"),
-  data_schema = system.file("testdata", "schema-data.yml", package = "HubValidations")
+  system.file("testdata", "data-processed", "example-model", "2021-07-26-example-model.csv", package = "HubValidations"),
+  data_schema = system.file("testdata", "data-processed", "schema-data.yml", package = "HubValidations")
 )
 ```

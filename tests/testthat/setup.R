@@ -7,10 +7,10 @@ fs::dir_copy(
   tdir
 )
 withr::with_dir(tdir, {
-  fs::file_move("testdata/example-model/2021-07-19-example-model.csv",
-                "testdata/example-model/2021-07-18-example-model.csv")
-  fs::file_move("testdata/example-model2/metadata-example-model2.yml",
-                "testdata/example-model2/metadata-example-model-fail.yml")
+  fs::file_move("testdata/data-processed/example-model/2021-07-19-example-model.csv",
+                "testdata/data-processed/example-model/2021-07-18-example-model.csv")
+  fs::file_move("testdata/metadata/metadata-example-model2.yml",
+                "testdata/metadata/metadata-example-model-fail.yml")
 })
 
 tdir2 <- fs::path(tempdir(), "error_fh_validations")
@@ -22,7 +22,7 @@ fs::dir_copy(
   tdir2
 )
 
-file_to_break <- fs::path(tdir2, "testdata", "schema-data.yml")
+file_to_break <- fs::path(tdir2, "testdata", "data-processed", "schema-data.yml")
 
 d <- readLines(file_to_break)
 d[1] <- paste0(d[1], ":")

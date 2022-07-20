@@ -1,8 +1,6 @@
 #' Validate a complete repository containing multiple forecast folders
 #'
-#' @param data_folder The path to the folder containing forecasts
-#' @inheritParams validate_model_data
-#' @inheritParams validate_model_metadata
+#' @inheritParams validate_model
 #'
 #' @return An object of class `fhub_validations`.
 #'
@@ -17,7 +15,8 @@
 #' )
 #'
 validate_repository <- function(
-  data_folder = ".",
+  data_folder = "data-processed",
+  metadata_folder = "metadata",
   data_schema = file.path(data_folder, "schema-data.yml"),
   metadata_schema = file.path(data_folder, "schema-metadata.yml")
 ) {
@@ -27,23 +26,24 @@ validate_repository <- function(
   tryCatch(
     {
 
-      forecast_folders <- fs::dir_ls(
+      models <- fs::dir_ls(
         path = data_folder,
         type = "directory"
-      )
+      ) |>
+        basename()
 
       validations <- c(validations, unlist(lapply(
-        forecast_folders,
-        validate_model_folder,
+        models,
+        validate_model,
+        data_folder = data_folder,
+        metadata_folder = metadata_folder,
         data_schema = data_schema,
         metadata_schema = metadata_schema
       ), recursive = FALSE))
 
       metadata_files <- fs::dir_ls(
-        path = data_folder,
-        type = "file",
-        regexp = "([a-zA-Z0-9_+]+-[a-zA-Z0-9_+]+)/metadata\\-.\\1\\.yml",
-        recurse = TRUE
+        path = metadata_folder,
+        type = "file"
       )
 
       model_designations <- purrr::map_dfr(

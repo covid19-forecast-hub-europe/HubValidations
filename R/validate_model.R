@@ -1,49 +1,55 @@
 #' Validate data and metadata for a given model/folder
 #'
-#' @param path Path to the model/folder to validate
+#' @param model_name Path to the folder containing the model data
+#' @param data_folder The path to the folder containing forecasts
+#' @param metadata_folder The path to the folder containing metadata
 #' @inheritParams validate_model_data
 #' @inheritParams validate_model_metadata
 #'
 #' @export
 #'
 #' @examples
-#' validate_model_folder(
-#'   system.file("testdata", "example-model",
+#' validate_model(
+#'   "example-model",
+#'   system.file("testdata", "data-processed",
+#'               package = "HubValidations"),
+#'   system.file("testdata", "metadata",
 #'               package = "HubValidations"),
 #'   system.file("testdata", "schema-data.yml",
 #'               package = "HubValidations"),
 #'   system.file("testdata", "schema-metadata.yml",
 #'               package = "HubValidations")
 #' )
-validate_model_folder <- function(path, data_schema, metadata_schema) {
+validate_model <- function(
+  model_name,
+  data_folder = "data-processed",
+  metadata_folder = "metadata",
+  data_schema = file.path(data_folder, "schema-data.yml"),
+  metadata_schema = file.path(data_folder, "schema-metadata.yml")
+) {
 
   validations_folder <- list()
 
   tryCatch(
     {
-      all_files <- fs::dir_ls(
-        path = path,
+      data_files <- fs::dir_ls(
+        path = file.path(data_folder, model_name),
+        regexp = "\\.csv$",
         type = "file"
       )
 
-      data_files <- all_files[fs::path_ext(all_files) == "csv"]
-
-      metadata_file <- all_files[grepl("^metadata", basename(all_files))]
+      metadata_file <- fs::dir_ls(
+        path = metadata_folder,
+        regexp = fs::path_ext_set(model_name, "yml"),
+        fixed = TRUE,
+        type = "file"
+      )
 
       validations_folder <- c(validations_folder,
         fhub_check(
-          fs::path_file(path),
+          model_name,
           identical(length(metadata_file), 1L),
-          "There", "only one metadata file"
-        ),
-        fhub_check(
-          fs::path_file(path),
-          identical(
-            fs::path_file(path),
-            gsub("^.*-([a-zA-Z0-9_+]+-[a-zA-Z0-9_+]+).*", "\\1",
-                 fs::path_file(metadata_file))
-          ),
-          "Folder name", "the same as the model name in metadata filename"
+          "There", "exactly one metadata file"
         )
       )
 
@@ -54,7 +60,7 @@ validate_model_folder <- function(path, data_schema, metadata_schema) {
            fhub_check(
              fs::path_file(file),
              identical(
-               fs::path_file(path),
+               model_name,
                gsub("^.*-([a-zA-Z0-9_+]+-[a-zA-Z0-9_+]+).*", "\\1",
                     fs::path_file(file))
              ),
@@ -72,7 +78,7 @@ validate_model_folder <- function(path, data_schema, metadata_schema) {
       # this "unrecoverable" error.
       e <- error_cnd(
         class = "unrecoverable_error",
-        where = fs::path_file(path),
+        where = fs::path_file(model_name),
         message = conditionMessage(e)
       )
       validations_folder <<- c(validations_folder, list(e))

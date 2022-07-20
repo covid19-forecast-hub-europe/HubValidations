@@ -5,13 +5,16 @@
 \title{Validate a complete repository containing multiple forecast folders}
 \usage{
 validate_repository(
-  data_folder = ".",
+  data_folder = "data-processed",
+  metadata_folder = "metadata",
   data_schema = file.path(data_folder, "schema-data.yml"),
   metadata_schema = file.path(data_folder, "schema-metadata.yml")
 )
 }
 \arguments{
 \item{data_folder}{The path to the folder containing forecasts}
+
+\item{metadata_folder}{The path to the folder containing metadata}
 
 \item{data_schema}{Path to the \code{.yml} schema file}
 

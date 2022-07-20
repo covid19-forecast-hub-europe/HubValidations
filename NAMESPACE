@@ -2,8 +2,8 @@
 
 S3method(print,fhub_validations)
 export(check_for_errors)
+export(validate_model)
 export(validate_model_data)
-export(validate_model_folder)
 export(validate_model_metadata)
 export(validate_pr)
 export(validate_repository)

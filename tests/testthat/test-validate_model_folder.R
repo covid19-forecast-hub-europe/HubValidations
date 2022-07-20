@@ -1,12 +1,9 @@
 test_that("Output class", {
 
-  res <- validate_model_folder(
-    system.file("testdata", "example-model",
-                package = "HubValidations"),
-    system.file("testdata", "schema-data.yml",
-                package = "HubValidations"),
-    system.file("testdata", "schema-metadata.yml",
-                package = "HubValidations")
+  res <- validate_model(
+    "example-model",
+    data_folder = system.file("testdata", "data-processed", package = "HubValidations"),
+    metadata_folder = system.file("testdata", "metadata", package = "HubValidations")
   )
 
   expect_s3_class(res, c("fhub_validations", "list"))
@@ -19,13 +16,10 @@ test_that("Output class", {
 
 test_that("Successful validation", {
 
-  res <- validate_model_folder(
-    system.file("testdata", "example-model",
-                package = "HubValidations"),
-    system.file("testdata", "schema-data.yml",
-                package = "HubValidations"),
-    system.file("testdata", "schema-metadata.yml",
-                package = "HubValidations")
+  res <- validate_model(
+    "example-model",
+    data_folder = system.file("testdata", "data-processed", package = "HubValidations"),
+    metadata_folder = system.file("testdata", "metadata", package = "HubValidations")
   )
 
   expect_true(all(map_lgl(res, rlang::is_message)))
@@ -40,10 +34,10 @@ test_that("Failed validation", {
 
   withr::with_dir(tdir, {
     res <- expect_silent({
-      validate_model_folder(
-        fs::path("testdata", "example-model"),
-        fs::path("testdata", "schema-data.yml"),
-        fs::path("testdata", "schema-metadata.yml")
+      validate_model(
+        "example-model",
+        fs::path("testdata", "data-processed"),
+        fs::path("testdata", "metadata")
       )
     })
   })
@@ -56,15 +50,12 @@ test_that("Failed validation", {
 
 test_that("Number of validations", {
 
-  res <- validate_model_folder(
-    system.file("testdata", "example-model",
-                package = "HubValidations"),
-    system.file("testdata", "schema-data.yml",
-                package = "HubValidations"),
-    system.file("testdata", "schema-metadata.yml",
-                package = "HubValidations")
+  res <- validate_model(
+    "example-model",
+    data_folder = system.file("testdata", "data-processed", package = "HubValidations"),
+    metadata_folder = system.file("testdata", "metadata", package = "HubValidations")
   )
 
-  expect_length(res, 14L)
+  expect_length(res, 13L)
 
 })
