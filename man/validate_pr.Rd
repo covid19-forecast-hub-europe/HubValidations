@@ -7,7 +7,6 @@
 validate_pr(
   gh_repo,
   pr_number,
-  data_folder,
   local = identical(Sys.getenv("GITHUB_ACTIONS"), "true") &&
     identical(Sys.getenv("GITHUB_REPOSITORY"), gh_repo),
   ...
@@ -17,8 +16,6 @@ validate_pr(
 \item{gh_repo}{GitHub repository address in the format \code{username/repo}}
 
 \item{pr_number}{Number of the pull request to validate}
-
-\item{data_folder}{Path to the folder containing forecasts in this \code{gh_repo}}
 
 \item{local}{Logical. Is this function called from your local computer or
 from a continuous integration system. By default, it tries to guess the

@@ -2,7 +2,6 @@
 #'
 #' @param gh_repo GitHub repository address in the format `username/repo`
 #' @param pr_number Number of the pull request to validate
-#' @param data_folder Path to the folder containing forecasts in this `gh_repo`
 #' @param local Logical. Is this function called from your local computer or
 #' from a continuous integration system. By default, it tries to guess the
 #' answer based on the values of some environment variables
@@ -24,7 +23,6 @@
 validate_pr <- function(
   gh_repo,
   pr_number,
-  data_folder,
   local = identical(Sys.getenv("GITHUB_ACTIONS"), "true") &&
           identical(Sys.getenv("GITHUB_REPOSITORY"), gh_repo),
   ...
@@ -37,7 +35,7 @@ validate_pr <- function(
     if (local) {
       validations <- c(
         validations,
-        validate_repository(data_folder, ...)
+        validate_repository(...)
       )
     } else {
       pr <- gh::gh(
