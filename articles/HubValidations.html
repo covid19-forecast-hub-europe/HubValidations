@@ -106,7 +106,7 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/validate_repository.html">validate_repository</a></span><span class="op">(</span></span>
 <span>  data_folder <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, <span class="st">"data-processed"</span>, package <span class="op">=</span> <span class="st">"HubValidations"</span><span class="op">)</span>,</span>
-<span>  metadata_folder <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, <span class="st">"metadata"</span>, package <span class="op">=</span> <span class="st">"HubValidations"</span><span class="op">)</span></span>
+<span>  metadata_folder <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, <span class="st">"model-metadata"</span>, package <span class="op">=</span> <span class="st">"HubValidations"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> example-model: There is exactly one metadata file </span></span>
 <span><span class="co">#&gt; </span></span>
@@ -170,7 +170,7 @@
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/validate_model.html">validate_model</a></span><span class="op">(</span></span>
 <span>  <span class="st">"example-model"</span>,</span>
 <span>  data_folder <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, <span class="st">"data-processed"</span>, package <span class="op">=</span> <span class="st">"HubValidations"</span><span class="op">)</span>,</span>
-<span>  metadata_folder <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, <span class="st">"metadata"</span>, package <span class="op">=</span> <span class="st">"HubValidations"</span><span class="op">)</span></span>
+<span>  metadata_folder <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, <span class="st">"model-metadata"</span>, package <span class="op">=</span> <span class="st">"HubValidations"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> example-model: There is exactly one metadata file </span></span>
 <span><span class="co">#&gt; </span></span>
@@ -205,7 +205,7 @@
 <p>Alternatively, you can check only the metadata file with <code><a href="../reference/validate_model_metadata.html">validate_model_metadata()</a></code>. You will have to specify the path to the metadata schema file</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/validate_model_metadata.html">validate_model_metadata</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, <span class="st">"metadata"</span>, <span class="st">"metadata-example-model.yml"</span>, package <span class="op">=</span> <span class="st">"HubValidations"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, <span class="st">"model-metadata"</span>, <span class="st">"metadata-example-model.yml"</span>, package <span class="op">=</span> <span class="st">"HubValidations"</span><span class="op">)</span>,</span>
 <span>  metadata_schema <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, <span class="st">"data-processed"</span>, <span class="st">"schema-metadata.yml"</span>, package <span class="op">=</span> <span class="st">"HubValidations"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> metadata-example-model.yml: Metadata file is using the `.yml` extension </span></span>
