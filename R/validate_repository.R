@@ -16,7 +16,7 @@
 #'
 validate_repository <- function(
   data_folder = "data-processed",
-  metadata_folder = "metadata",
+  metadata_folder = "model-metadata",
   data_schema = file.path(data_folder, "schema-data.yml"),
   metadata_schema = file.path(data_folder, "schema-metadata.yml")
 ) {

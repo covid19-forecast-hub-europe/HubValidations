@@ -7,7 +7,7 @@
 validate_model(
   model_name,
   data_folder = "data-processed",
-  metadata_folder = "metadata",
+  metadata_folder = "model-metadata",
   data_schema = file.path(data_folder, "schema-data.yml"),
   metadata_schema = file.path(data_folder, "schema-metadata.yml")
 )
@@ -31,7 +31,7 @@ validate_model(
   "example-model",
   system.file("testdata", "data-processed",
               package = "HubValidations"),
-  system.file("testdata", "metadata",
+  system.file("testdata", "model-metadata",
               package = "HubValidations"),
   system.file("testdata", "schema-data.yml",
               package = "HubValidations"),

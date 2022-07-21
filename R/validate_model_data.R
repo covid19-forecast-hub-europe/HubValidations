@@ -14,11 +14,11 @@
 #' @examples
 #' validate_model_data(
 #'   system.file(
-#'     "testdata", "example-model", "2021-07-26-example-model.csv",
+#'     "testdata", "data-processed", "example-model", "2021-07-26-example-model.csv",
 #'     package = "ForecastHubValidations"
 #'   ),
 #'   system.file(
-#'     "testdata", "schema-forecast.yml",
+#'     "testdata", "data-processed", "schema-forecast.yml",
 #'     package = "ForecastHubValidations"
 #'   )
 #' )
