@@ -60,6 +60,6 @@ test_that("Number of validations", {
                 package = "HubValidations")
   )
 
-  expect_length(res, 4L)
+  expect_length(res, 3L)
 
 })

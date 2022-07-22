@@ -32,11 +32,6 @@ validate_model_metadata <- function(metadata_file, metadata_schema) {
           metadata_file,
           fs::path_ext(metadata_file) == "yml",
           "Metadata file", "using the `.yml` extension"
-        ),
-        fhub_check(
-          metadata_file,
-          grepl("^metadata-", fs::path_file(metadata_file)),
-          "Metadata filename", "starting with 'metadata-'"
         )
       )
 

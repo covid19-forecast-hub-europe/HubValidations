@@ -64,6 +64,6 @@ test_that("Number of validations", {
     system.file("testdata", "schema-metadata.yml", package = "HubValidations")
   )
 
-  expect_length(res, 13L)
+  expect_length(res, 12L)
 
 })
