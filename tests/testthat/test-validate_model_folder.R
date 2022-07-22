@@ -3,7 +3,9 @@ test_that("Output class", {
   res <- validate_model(
     "example-model",
     data_folder = system.file("testdata", "data-processed", package = "HubValidations"),
-    metadata_folder = system.file("testdata", "model-metadata", package = "HubValidations")
+    metadata_folder = system.file("testdata", "model-metadata", package = "HubValidations"),
+    system.file("testdata", "schema-data.yml", package = "HubValidations"),
+    system.file("testdata", "schema-metadata.yml", package = "HubValidations")
   )
 
   expect_s3_class(res, c("fhub_validations", "list"))
@@ -19,7 +21,9 @@ test_that("Successful validation", {
   res <- validate_model(
     "example-model",
     data_folder = system.file("testdata", "data-processed", package = "HubValidations"),
-    metadata_folder = system.file("testdata", "model-metadata", package = "HubValidations")
+    metadata_folder = system.file("testdata", "model-metadata", package = "HubValidations"),
+    system.file("testdata", "schema-data.yml", package = "HubValidations"),
+    system.file("testdata", "schema-metadata.yml", package = "HubValidations")
   )
 
   expect_true(all(map_lgl(res, rlang::is_message)))
@@ -37,7 +41,9 @@ test_that("Failed validation", {
       validate_model(
         "example-model",
         fs::path("testdata", "data-processed"),
-        fs::path("testdata", "model-metadata")
+        fs::path("testdata", "model-metadata"),
+        fs::path("testdata", "schema-data.yml"),
+        fs::path("testdata", "schema-metadata.yml")
       )
     })
   })
@@ -53,7 +59,9 @@ test_that("Number of validations", {
   res <- validate_model(
     "example-model",
     data_folder = system.file("testdata", "data-processed", package = "HubValidations"),
-    metadata_folder = system.file("testdata", "model-metadata", package = "HubValidations")
+    metadata_folder = system.file("testdata", "model-metadata", package = "HubValidations"),
+    system.file("testdata", "schema-data.yml", package = "HubValidations"),
+    system.file("testdata", "schema-metadata.yml", package = "HubValidations")
   )
 
   expect_length(res, 13L)

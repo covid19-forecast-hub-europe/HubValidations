@@ -4,7 +4,7 @@ test_that("Output class", {
     validate_model_data(
       system.file("testdata", "data-processed", "example-model", "2021-07-26-example-model.csv",
                   package = "HubValidations"),
-      system.file("testdata", "data-processed", "schema-data.yml",
+      system.file("testdata", "schema-data.yml",
                   package = "HubValidations")
     )})
 
@@ -21,7 +21,7 @@ test_that("Successful validation", {
   res <- validate_model_data(
     system.file("testdata", "data-processed", "example-model", "2021-07-26-example-model.csv",
                 package = "HubValidations"),
-    system.file("testdata", "data-processed", "schema-data.yml",
+    system.file("testdata", "schema-data.yml",
                 package = "HubValidations")
   )
 
@@ -39,7 +39,7 @@ test_that("Failed validation", {
     res <- expect_silent({
       validate_model_data(
         fs::path("testdata", "data-processed", "example-model", "2021-07-18-example-model.csv"),
-        fs::path("testdata", "data-processed", "schema-data.yml")
+        fs::path("testdata", "schema-data.yml")
       )
     })
   })
@@ -58,7 +58,7 @@ test_that("Erroring validation", {
     res <- expect_silent({
       validate_model_data(
         fs::path("testdata", "data-processed", "example-model", "2021-07-19-example-model.csv"),
-        fs::path("testdata", "data-processed", "schema-data.yml")
+        fs::path("testdata", "schema-data.yml")
       )
     })
   })
@@ -74,7 +74,7 @@ test_that("Number of validations", {
   res <- validate_model_data(
     system.file("testdata", "data-processed", "example-model", "2021-07-26-example-model.csv",
                 package = "HubValidations"),
-    system.file("testdata", "data-processed", "schema-data.yml",
+    system.file("testdata", "schema-data.yml",
                 package = "HubValidations")
   )
 

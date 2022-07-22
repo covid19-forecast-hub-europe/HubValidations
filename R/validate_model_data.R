@@ -18,7 +18,7 @@
 #'     package = "ForecastHubValidations"
 #'   ),
 #'   system.file(
-#'     "testdata", "data-processed", "schema-forecast.yml",
+#'     "testdata", "schema-forecast.yml",
 #'     package = "ForecastHubValidations"
 #'   )
 #' )

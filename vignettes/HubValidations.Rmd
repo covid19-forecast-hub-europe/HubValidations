@@ -35,7 +35,9 @@ To reproduce the checks done automatically when you open a pull request, the sim
 ```{r}
 validate_repository(
   data_folder = system.file("testdata", "data-processed", package = "HubValidations"),
-  metadata_folder = system.file("testdata", "model-metadata", package = "HubValidations")
+  metadata_folder = system.file("testdata", "model-metadata", package = "HubValidations"),
+  data_schema = system.file("testdata", "schema-data.yml", package = "HubValidations"),
+  metadata_schema = system.file("testdata", "schema-metadata.yml", package = "HubValidations")
 )
 ```
 
@@ -47,7 +49,9 @@ You can check a specific model instead of checking the whole repository by runni
 validate_model(
   "example-model",
   data_folder = system.file("testdata", "data-processed", package = "HubValidations"),
-  metadata_folder = system.file("testdata", "model-metadata", package = "HubValidations")
+  metadata_folder = system.file("testdata", "model-metadata", package = "HubValidations"),
+  data_schema = system.file("testdata", "schema-data.yml", package = "HubValidations"),
+  metadata_schema = system.file("testdata", "schema-metadata.yml", package = "HubValidations")
 )
 ```
 
@@ -58,7 +62,7 @@ Alternatively, you can check only the metadata file with `validate_model_metadat
 ```{r}
 validate_model_metadata(
   system.file("testdata", "model-metadata", "metadata-example-model.yml", package = "HubValidations"),
-  metadata_schema = system.file("testdata", "data-processed", "schema-metadata.yml", package = "HubValidations")
+  metadata_schema = system.file("testdata", "schema-metadata.yml", package = "HubValidations")
 )
 ```
 
@@ -69,6 +73,6 @@ Alternatively, you can check only the projection file with `validate_model_data(
 ```{r}
 validate_model_data(
   system.file("testdata", "data-processed", "example-model", "2021-07-26-example-model.csv", package = "HubValidations"),
-  data_schema = system.file("testdata", "data-processed", "schema-data.yml", package = "HubValidations")
+  data_schema = system.file("testdata", "schema-data.yml", package = "HubValidations")
 )
 ```

@@ -7,8 +7,8 @@
 validate_repository(
   data_folder = "data-processed",
   metadata_folder = "model-metadata",
-  data_schema = file.path(data_folder, "schema-data.yml"),
-  metadata_schema = file.path(data_folder, "schema-metadata.yml")
+  data_schema = "schema-data.yml",
+  metadata_schema = "schema-metadata.yml"
 )
 }
 \arguments{
