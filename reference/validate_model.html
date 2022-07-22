@@ -67,8 +67,8 @@
 <span>  <span class="va">model_name</span>,</span>
 <span>  data_folder <span class="op">=</span> <span class="st">"data-processed"</span>,</span>
 <span>  metadata_folder <span class="op">=</span> <span class="st">"model-metadata"</span>,</span>
-<span>  data_schema <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">data_folder</span>, <span class="st">"schema-data.yml"</span><span class="op">)</span>,</span>
-<span>  metadata_schema <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">data_folder</span>, <span class="st">"schema-metadata.yml"</span><span class="op">)</span></span>
+<span>  data_schema <span class="op">=</span> <span class="st">"schema-data.yml"</span>,</span>
+<span>  metadata_schema <span class="op">=</span> <span class="st">"schema-metadata.yml"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -120,17 +120,20 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> metadata-example-model.yml: Metadata filename is the same as `model_abbr` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> metadata-example-model.yml: Metadata schema file (``) does not exist</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> metadata-example-model.yml: Metadata file is consistent with schema specifications </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> 2021-07-19-example-model.csv: Filename is formed of a date and a model name, separated by an hyphen </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> 2021-07-19-example-model.csv: `forecast_date` column is identical to the date in filename </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> 2021-07-19-example-model.csv: Data schema file (``) does not exist</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> 2021-07-19-example-model.csv: Data is formed of the expected columns with correct type </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> 2021-07-26-example-model.csv: Filename is formed of a date and a model name, separated by an hyphen </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> 2021-07-26-example-model.csv: `forecast_date` column is identical to the date in filename </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> 2021-07-26-example-model.csv: Data schema file (``) does not exist</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> 2021-07-26-example-model.csv: Data is formed of the expected columns with correct type </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 </code></pre></div>
     </div>
   </div>
