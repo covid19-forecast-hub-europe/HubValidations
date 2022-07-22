@@ -9,8 +9,8 @@ fs::dir_copy(
 withr::with_dir(tdir, {
   fs::file_move("testdata/data-processed/example-model/2021-07-19-example-model.csv",
                 "testdata/data-processed/example-model/2021-07-18-example-model.csv")
-  fs::file_move("testdata/model-metadata/metadata-example-model2.yml",
-                "testdata/model-metadata/metadata-example-model-fail.yml")
+  fs::file_move("testdata/model-metadata/example-model2.yml",
+                "testdata/model-metadata/example-model-fail.yml")
 })
 
 tdir2 <- fs::path(tempdir(), "error_fh_validations")

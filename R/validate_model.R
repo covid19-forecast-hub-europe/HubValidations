@@ -40,7 +40,7 @@ validate_model <- function(
 
       metadata_file <- fs::dir_ls(
         path = metadata_folder,
-        regexp = fs::path_ext_set(model_name, "yml"),
+        regexp = paste0("/", fs::path_ext_set(model_name, "yml")),
         fixed = TRUE,
         type = "file"
       )

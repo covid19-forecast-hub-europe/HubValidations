@@ -61,7 +61,7 @@ Alternatively, you can check only the metadata file with `validate_model_metadat
 
 ```{r}
 validate_model_metadata(
-  system.file("testdata", "model-metadata", "metadata-example-model.yml", package = "HubValidations"),
+  system.file("testdata", "model-metadata", "example-model.yml", package = "HubValidations"),
   metadata_schema = system.file("testdata", "schema-metadata.yml", package = "HubValidations")
 )
 ```
