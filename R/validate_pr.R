@@ -6,6 +6,7 @@
 #' from a continuous integration system. By default, it tries to guess the
 #' answer based on the values of some environment variables
 #' @param ... Arguments passed to [validate_repository()]
+#' @inheritParams validate_repository
 #'
 #' @return An object of class `fhub_validations`.
 #'
@@ -23,6 +24,8 @@
 validate_pr <- function(
   gh_repo,
   pr_number,
+  data_folder,
+  metadata_folder,
   local = identical(Sys.getenv("GITHUB_ACTIONS"), "true") &&
           identical(Sys.getenv("GITHUB_REPOSITORY"), gh_repo),
   ...
@@ -35,7 +38,7 @@ validate_pr <- function(
     if (local) {
       validations <- c(
         validations,
-        validate_repository(...)
+        validate_repository(data_folder, metadata_folder, ...)
       )
     } else {
       pr <- gh::gh(
@@ -59,7 +62,11 @@ validate_pr <- function(
 
       validations <- c(
         validations,
-        validate_repository(fs::path(tmp, data_folder), ...)
+        validate_repository(
+          fs::path(tmp, data_folder),
+          fs::path(tmp, metadata_folder),
+          ...
+        )
       )
     }
   },
